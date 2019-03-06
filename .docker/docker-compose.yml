@@ -9,6 +9,6 @@ services:
     ports:
       - "9080:8080"
     volumes:
-      - /usr/src/app/
+      - ./usr/src/app/
     entrypoint:
       - "/bin/bash"
