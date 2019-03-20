@@ -21,7 +21,7 @@ def get_api_key(topic):
         return REQUEST(topic_url, topic_data, topic_api_key)
 
 
-def call_api_url(topic):
+def api_post_req(topic):
     """Sends get request to the given api url"""
     api_info = get_api_key(topic)
     api_url = api_info.url
@@ -45,4 +45,4 @@ def call_api_url(topic):
 
 
 if __name__ == '__main__':
-    call_api_url("rescue_group")
+    api_post_req("rescue_group")
