@@ -1,5 +1,4 @@
 from collections import namedtuple
-from string import Template
 
 import requests
 import logging
@@ -29,10 +28,20 @@ def call_api_url(topic):
     api_data = api_info.data
     api_key = api_info.api_key
     headers = {"x-api-key": api_key}
-    response = requests.post(
-            url=api_url, headers=headers, json=api_data, timeout=5
-    )
-    print(response.text)
+
+    try:
+        response = requests.post(
+                url=api_url,
+                headers=headers,
+                json=api_data,
+                timeout=10,
+        )
+        if response.status_code == 200:
+            return response.text
+        else:
+            logger.error(f"Request failed with response: {response.status_code}")
+    except Exception as e:
+        logger.error(e)
 
 
 if __name__ == '__main__':
