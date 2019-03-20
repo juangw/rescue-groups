@@ -13,7 +13,7 @@ REQUEST = namedtuple("request_data", ["url", "data", "api_key"])
 
 def get_api_key(topic):
     """Gets api key based on url"""
-    with open("../secrets.json") as secrets:
+    with open("../../secrets.json") as secrets:
         topic_secret = json.load(secrets).get(topic)
         topic_url = topic_secret.get("url")
         topic_data = topic_secret.get("data")
@@ -42,7 +42,3 @@ def api_post_req(topic):
             logger.error(f"Request failed with response: {response.status_code}")
     except Exception as e:
         logger.error(e)
-
-
-if __name__ == '__main__':
-    api_post_req("rescue_group")
