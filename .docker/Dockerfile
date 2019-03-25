@@ -10,8 +10,8 @@ RUN pip3 install -r requirements.txt
 RUN python setup.py develop
 
 # specify the port number the container should expose
-EXPOSE 9080
+EXPOSE 8080
 
 # run the application
 ENTRYPOINT ["python3"]
-CMD ["-m", "api_project"]
+CMD ["-m", "api_projects"]

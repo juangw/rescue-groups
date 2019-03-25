@@ -41,7 +41,7 @@ class DockerCLI(object):
              shell=True)
 
     def build(self):
-        call(["docker-compose -f .docker/docker-compose.yml build"],
+        call(["docker-compose -f .docker/docker-compose.yml build --no-cache"],
              shell=True)
 
     def stop(self):
