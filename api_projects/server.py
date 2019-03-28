@@ -55,11 +55,9 @@ def home():
         "animalActivityLevel"
     ]
 
-    text = api_post_req("rescue_group", default_filter, default_fields)
-    print(text)
-    return render_template("home.html")
+    results = api_post_req("rescue_group", default_filter, default_fields)
+    return render_template("home.html", results=results)
 
 
 def run():
-    app.add_api('my_api.yaml')
-    app.run(debug=True, port=8080)
+    app.run(debug=True, host="0.0.0.0", port=8090)
