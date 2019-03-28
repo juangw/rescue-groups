@@ -3,6 +3,7 @@ from flask import render_template
 
 import connexion
 import logging
+import ast
 
 logger = logging.getLogger()
 logger.addHandler(logging.StreamHandler())
@@ -56,7 +57,8 @@ def home():
     ]
 
     results = api_post_req("rescue_group", default_filter, default_fields)
-    return render_template("home.html", results=results)
+    result_dict = ast.literal_eval(results)
+    return render_template("home.html", results=result_dict)
 
 
 def run():
