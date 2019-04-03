@@ -60,7 +60,7 @@ def home():
         "animalLap",
         "animalActivityLevel"
     ]
-
+    log.debug("Attempting to gather API data")
     results = api_post_req("rescue_group", default_filter, default_fields)
     if results is not None:
         result_dict = ast.literal_eval(results)
