@@ -2,3 +2,5 @@ requests==2.21.0
 green==2.13.0
 flask==1.0.2
 connexion==2.0
+sqlalchemy==1.2.9
+green==2.13.0

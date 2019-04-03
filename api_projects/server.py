@@ -4,12 +4,17 @@ from flask import render_template
 import connexion
 import logging
 import ast
+import os
 
-logger = logging.getLogger()
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
 
-logger.debug("Start of Program, Testing Debugger")
+LOG_LEVEL = getattr(logging, os.environ.get("LOG_LEVEL", "NOTSET"))
+
+logging.basicConfig(level=LOG_LEVEL)
+log = logging.getLogger("api_projects")
+log.addHandler(logging.StreamHandler())
+log.setLevel(LOG_LEVEL)
+
+log.debug("Start of Program, Testing Debugger")
 
 # Create the application instance
 app = connexion.FlaskApp(__name__, specification_dir='openapi/')
@@ -19,7 +24,7 @@ app = connexion.FlaskApp(__name__, specification_dir='openapi/')
 def home():
     """
     This function just responds to the browser URL
-    localhost:5000/
+    localhost:8090/
 
     :return:        the rendered template "home.html"
     """
@@ -57,8 +62,11 @@ def home():
     ]
 
     results = api_post_req("rescue_group", default_filter, default_fields)
-    result_dict = ast.literal_eval(results)
-    return render_template("home.html", results=result_dict)
+    if results is not None:
+        result_dict = ast.literal_eval(results)
+        return render_template("home.html", results=result_dict)
+    else:
+        return render_template("error.html")
 
 
 def run():
