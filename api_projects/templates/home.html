@@ -8,10 +8,16 @@
     <h2>
         Animal Rescue Groups
     </h2>
+    <p>Results Found: {{ results.foundRows }}</p>
     <p>{{ types }}</p>
-    {% for k,v in results.items() %}
+    {% for id, animal in results.data.items() %}
         <tr>
-            <td>{{ k }}: {{ v }}</td>
+            <td>Animal ID {{ id }}</td>
+            <ul>
+            {% for k, v in animal.items() %}
+            	<li>{{ k }}: {{ v }}</li>
+            {% endfor %}
+            </ul>
         </tr>
 	{% endfor %}
 </body>

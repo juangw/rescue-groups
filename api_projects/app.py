@@ -70,4 +70,5 @@ def home():
 
 
 def run():
-    app.run(debug=True, host="0.0.0.0", port=8090)
+    # app.add_api('my_api.yaml')
+    app.run(debug=True, host="0.0.0.0", port=8080)
