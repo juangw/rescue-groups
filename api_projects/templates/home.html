@@ -15,7 +15,19 @@
             <td>Animal ID {{ id }}</td>
             <ul>
             {% for k, v in animal.items() %}
-            	<li>{{ k }}: {{ v }}</li>
+            	{% if k == "animalThumbnailUrl" %}
+            		<p>Thumbnail</p>
+            		<img src="{{ v }}" alt="Pet Thumbnail">
+            	{% elif k == "animalPictures" %}
+            		<p>Pictures</p>
+            		{% for picture in v %}
+            			<img src="{{ picture.urlSecureFullsize }}" alt="Pet Picture">
+            		{% endfor %}
+            	{% elif k == "animalDescription" %}
+            		<p>{{ strip_tags(v) }}</p>
+            	{% elif v != "" %}
+            		<li>{{ k }}: {{ v }}</li>
+            	{% endif %}
             {% endfor %}
             </ul>
         </tr>
