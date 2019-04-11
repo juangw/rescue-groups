@@ -3,18 +3,14 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
-    <title>API Home Page</title>
+    <title>Animal Page</title>
 </head>
 <body>
     <h2>
         Animal Rescue Groups
     </h2>
     <p>Results Found: {{ results.foundRows }}</p>
-    <form method="post">
-        <button type="submit">Do it!</button>
-    </form>
     <p>{{ types }}</p>
-    <p>{{ limits }}</p>
     {% for id, animal in results.data.items() %}
         <tr>
             <td>Animal ID {{ id }}</td>
@@ -23,9 +19,13 @@
                 {% if k == "animalThumbnailUrl" %}
                     <p>Thumbnail</p>
                     <img src="{{ v }}" alt="Pet Thumbnail">
+                {% elif k == "animalPictures" %}
+                    <p>Pictures</p>
+                    {% for picture in v %}
+                        <img src="{{ picture.urlSecureFullsize }}" alt="Pet Image">
+                    {% endfor %}
                 {% elif k == "animalName" %}
-                    <p>animalName</p>
-                    <a href="{{ url_for('animal', animal_id=id) }}">{{ v }}</a>
+                    <p>{{ k }}</p>
                 {% elif k == "animalDescription" %}
                     <p>{{ strip_tags(v) }}</p>
                 {% elif v != "" %}

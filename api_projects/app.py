@@ -1,91 +1,139 @@
+from src.rescue_group.utils.call_rescue_group import api_post_req
 from src.rescue_group.models.parser import strip_tags
-from common.utils.get_api_data import api_post_req
-from flask import render_template
+from flask import render_template, request, redirect, url_for
+from api_projects.log import log
 
 import connexion
-import logging
 import json
-import os
 
-
-LOG_LEVEL = getattr(logging, os.environ.get("LOG_LEVEL", "NOTSET"))
-
-logging.basicConfig(level=LOG_LEVEL)
-log = logging.getLogger("api_projects")
-log.addHandler(logging.StreamHandler())
-log.setLevel(LOG_LEVEL)
-
-log.debug("Start of Program, Testing Debugger")
+start = 0
+stop = 20
 
 # Create the application instance
 app = connexion.FlaskApp(__name__, specification_dir='openapi/')
 
 
-@app.route("/")
-def home():
+@app.route("/", methods=["GET", "POST"])
+def home(start=start, stop=stop):
     """
     This function just responds to the browser URL
     localhost:8090/
 
     :return:        the rendered template "home.html"
     """
-    default_filter = [
+    if request.method == "POST":
+        start += 20
+        stop += 20
+        return redirect(url_for("home", start=start, stop=stop))
+    else:
+        default_filter = [
+            {
+                "fieldName": "animalSpecies",
+                "operation": "equals",
+                "criteria": "cat"
+            },
+            {
+                "fieldName": "animalLocation",
+                "operation": "greaterthan",
+                "criteria": "48103"
+            },
+            {
+                "fieldName": "animalLocation",
+                "operation": "lessthan",
+                "criteria": "48109"
+            },
+        ]
+        default_fields = [
+            "animalOrgID",
+            "locationPhone",
+            "fosterPhoneCell",
+            "fosterEmail",
+            "animalName",
+            "animalDescription",
+            "animalThumbnailUrl",
+            "animalSex",
+            "animalAdoptionFee",
+            "animalBreed",
+            "animalColor",
+            "animalEyeColor",
+            "animalAgeString",
+            "animalGeneralAge",
+            "animalBirthdate",
+            "animalLocationCitystate",
+            "animalLocationState",
+            "animalLocation",
+            "locationAddress",
+            "locationUrl",
+            "animalAffectionate",
+            "animalApartment",
+            "animalIntelligent",
+            "animalLap",
+            "animalActivityLevel"
+        ]
+        log.debug("Attempting to gather API data")
+        results = api_post_req(
+            "rescue_group", start, stop, default_filter, default_fields
+        )
+        if results is not None:
+            result_dict = json.loads(results)
+            return render_template(
+                "home.html", results=result_dict, strip_tags=strip_tags, limits=[start, stop]
+            )
+        else:
+            return render_template("error.html")
+
+
+@app.route("/animal/<animal_id>")
+def animal(animal_id):
+    """
+    This function just responds to the browser URL
+    localhost:8090/
+
+    :return:        the rendered template "home.html"
+    """
+    animal_filter = [
         {
-            "fieldName": "animalSpecies",
+            "fieldName": "animalID",
             "operation": "equals",
-            "criteria": "cat"
-        },
-        {
-            "fieldName": "animalLocation",
-            "operation": "greaterthan",
-            "criteria": "48103"
-        },
-        {
-            "fieldName": "animalLocation",
-            "operation": "lessthan",
-            "criteria": "48198"
-        },
-        {
-            "fieldName": "animalLocation",
-            "operation": "lessthan",
-            "criteria": "48198"
-        },
+            "criteria": animal_id
+        }
     ]
     default_fields = [
-        "animalID",
-        "animalOrgID",
-        "locationPhone",
-        "fosterPhoneCell",
-        "fosterEmail",
-        "animalName",
-        "animalDescription",
-        "animalThumbnailUrl",
-        "animalPictures",
-        "animalSex",
-        "animalAdoptionFee",
-        "animalBreed",
-        "animalColor",
-        "animalEyeColor",
-        "animalAgeString",
-        "animalGeneralAge",
-        "animalBirthdate",
-        "animalLocationCitystate",
-        "animalLocationState",
-        "animalLocation",
-        "locationAddress",
-        "locationUrl",
-        "animalAffectionate",
-        "animalApartment",
-        "animalIntelligent",
-        "animalLap",
-        "animalActivityLevel"
-    ]
+            "animalOrgID",
+            "locationPhone",
+            "fosterPhoneCell",
+            "fosterEmail",
+            "animalName",
+            "animalDescription",
+            "animalThumbnailUrl",
+            "animalPictures",
+            "animalSex",
+            "animalAdoptionFee",
+            "animalBreed",
+            "animalColor",
+            "animalEyeColor",
+            "animalAgeString",
+            "animalGeneralAge",
+            "animalBirthdate",
+            "animalLocationCitystate",
+            "animalLocationState",
+            "animalLocation",
+            "locationAddress",
+            "locationUrl",
+            "animalAffectionate",
+            "animalApartment",
+            "animalIntelligent",
+            "animalLap",
+            "animalActivityLevel"
+        ]
     log.debug("Attempting to gather API data")
-    results = api_post_req("rescue_group", default_filter, default_fields)
+    results = api_post_req(
+        "rescue_group", 0, 1, animal_filter, default_fields
+    )
     if results is not None:
         result_dict = json.loads(results)
         return render_template(
-            "home.html", results=result_dict, strip_tags=strip_tags
+            "animal.html", results=result_dict, strip_tags=strip_tags
         )
     else:
         return render_template("error.html")
