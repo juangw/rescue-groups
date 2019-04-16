@@ -107,4 +107,4 @@ venv.bak/
 secrets.json
 
 # mac
-.DS_Store.DS_Store
+.DS_Store
