@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+p, li, h2, td, th {
+	color: white !important;
+	margin: 0 !important;
+}
+
+h2 {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+ul {
+	margin-bottom: 0 !important;
+}
+
+a:link {
+    color: #1DB954;
+}
+
+a:visited {
+    color: #ff9933;
+}
+
+a:hover {
+    color: #00ccff !important;
+}
+
+table {
+	margin-bottom: 0 !important;
+}
+
+.fab {
+	font-size: 3em !important;
+	float: right;
+  	margin-right: 1em;
+}
+
+.btn {
+  border-color: grey !important;
+  border-radius: 0.25em !important;
+  padding: 1em 2em !important;
+  text-align: center;
+  text-decoration: none !important;
+  display: block !important;
+  font-size: 1em !important;
+}
+
+.btn.save {
+	background-color: #1DB954;
+	margin: .5em !important;
+}
+
+.btn.info {
+	background-color: #00ccff;
+	margin: .5em !important;
+}
+
+.header {
+	background-color: #1DB954;
+    height: 7em;
+}
+
+.wrapper {
+	min-height: 100%;
+    height: auto !important;
+    position: relative;
+}
+
+.wrapper-bg {
+    background-image: url('/static/imgs/cat.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 80em;
+    position: absolute;
+    opacity: 0.8;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footer {
+	background-color: #1DB954;
+    height: 5em;
+}

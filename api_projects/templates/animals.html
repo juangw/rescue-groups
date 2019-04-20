@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animals.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>API Home Page</title>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <h2>Animal Rescue Groups</h2>
+            <p>Results Found: {{ results.foundRows }}</p>
+            <p>{{ types }}</p>
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="wrapper-bg"></div>
+        <p>{{ types }}</p>
+        <p>{{ limits }}</p>
+         <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Animal ID #</th>
+                    <th scope="col">Thumbnail</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for id, animal in results.data.items() %}
+                <tr>
+                    <th scope="row">{{ id }}</th>
+                    <td>
+                        <a href="{{ url_for('animal', animal_id=id) }}">
+                            <img src="{{ animal.animalThumbnailUrl }}" alt="Pet Thumbnail">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('animal', animal_id=id) }}">{{ animal.animalName }}</a>
+                    </td>
+                    <td>{{ animal.animalSex }}</td>
+                    <td>{{ animal.animalGeneralAge }}</td>
+                    <td>{{ animal.animalLocationCitystate }}</td>
+                    <td>
+                        <input type="button" class="btn save" value="Save"/>
+                        <input type="button" class="btn info" value="Info" onclick="window.location.href = '{{ url_for('animal', animal_id=id) }}';"/>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+<footer>
+    <div class="footer">
+        <p>Created by William Juang</p>
+        <a href="https://github.com/juangw/python-api-projects">
+            <i class="fab fa-github"></i>
+        </a>
+    </div>
+</footer>
+</html>

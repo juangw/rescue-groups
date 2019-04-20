@@ -13,7 +13,7 @@ stop = 20
 app = connexion.FlaskApp(__name__, specification_dir='openapi/')
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/animals", methods=["GET", "POST"])
 def home(start=start, stop=stop):
     """
     This function just responds to the browser URL
@@ -44,31 +44,12 @@ def home(start=start, stop=stop):
             },
         ]
         default_fields = [
-            "animalOrgID",
-            "locationPhone",
-            "fosterPhoneCell",
-            "fosterEmail",
             "animalName",
-            "animalDescription",
             "animalThumbnailUrl",
             "animalSex",
-            "animalAdoptionFee",
-            "animalBreed",
-            "animalColor",
-            "animalEyeColor",
-            "animalAgeString",
             "animalGeneralAge",
-            "animalBirthdate",
             "animalLocationCitystate",
-            "animalLocationState",
-            "animalLocation",
             "locationAddress",
-            "locationUrl",
-            "animalAffectionate",
-            "animalApartment",
-            "animalIntelligent",
-            "animalLap",
-            "animalActivityLevel"
         ]
         log.debug("Attempting to gather API data")
         results = api_post_req(
@@ -77,7 +58,9 @@ def home(start=start, stop=stop):
         if results is not None:
             result_dict = json.loads(results)
             return render_template(
-                "home.html", results=result_dict, strip_tags=strip_tags, limits=[start, stop]
+                "animals.html",
+                results=result_dict,
+                limits=[start, stop],
             )
         else:
             return render_template("error.html")
@@ -99,22 +82,16 @@ def animal(animal_id):
         }
     ]
     default_fields = [
-            "animalOrgID",
-            "locationPhone",
-            "fosterPhoneCell",
-            "fosterEmail",
             "animalName",
             "animalDescription",
             "animalThumbnailUrl",
             "animalPictures",
             "animalSex",
             "animalAdoptionFee",
-            "animalBreed",
             "animalColor",
             "animalEyeColor",
             "animalAgeString",
             "animalGeneralAge",
-            "animalBirthdate",
             "animalLocationCitystate",
             "animalLocationState",
             "animalLocation",
