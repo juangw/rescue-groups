@@ -42,60 +42,56 @@
 <body>
     <header>
         <div class="header">
-            <h2>Animal Rescue Groups</h2>
-            <p>Results Found: {{ results.foundRows }}</p>
-            <p>{{ types }}</p>
+            <h2>Information on {{ results.data[animal_id].animalName }}</h2>
         </div>
     </header>
     <div class="wrapper">
         <div class="wrapper-bg"></div>
-        {% for id, animal in results.data.items() %}
-            <tr>
-                <p>Animal ID {{ id }}</p>
-                <ul>
-                {% for k, v in animal.items() %}
-                    {% if k == "animalPictures" %}
-                        <!-- Slideshow container -->
-                        <div class="slideshow-container">
+        <tr>
+            <ul>
+            <br>
+            <div class="row">
+                <!-- Slideshow container -->
+                <div class="slideshow-container col-md-6">
+                    <div class="slideshow-container-bg"></div>
+                    <!-- Full-width images with number and caption text -->
+                    {% for picture in results.data[animal_id].animalPictures %}
+                        {% if picture.mediaOrder == "1" %}
+                            <div class="mySlides fade" style="display: block;">
+                                <div class="numbertext">{{ picture.mediaOrder }}</div>
+                                <img src="{{ picture.urlSecureFullsize }}" alt="Pet Image">
+                            </div>
+                        {% else %}
+                            <div class="mySlides fade">
+                                <div class="numbertext">{{ picture.mediaOrder }}</div>
+                                <img src="{{ picture.urlSecureFullsize }}" alt="Pet Image">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
 
-                            <!-- Full-width images with number and caption text -->
-                            {% for picture in v %}
-                                {% if picture.mediaOrder == "1" %}
-                                    <div class="mySlides fade" style="display: block;">
-                                        <div class="numbertext">{{ picture.mediaOrder }}</div>
-                                        <img src="{{ picture.urlSecureFullsize }}" alt="Pet Image">
-                                    </div>
-                                {% else %}
-                                    <div class="mySlides fade">
-                                        <div class="numbertext">{{ picture.mediaOrder }}</div>
-                                        <img src="{{ picture.urlSecureFullsize }}" alt="Pet Image">
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-
-                            <!-- Next and previous buttons -->
-                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                        </div>
-                        <br>
-
-                        <!-- The dots/circles -->
-                        <div style="text-align:center">
-                            {% for picture in v %}
-                                <span class="dot" onclick="currentSlide('{{ picture.mediaOrder }}')"></span>
-                            {% endfor %}
-                        </div>
-                    {% elif k == "animalName" %}
-                        <p>{{ k }}</p>
-                    {% elif k == "animalDescription" %}
-                        <p>{{ strip_tags(v) }}</p>
-                    {% elif v != "" %}
-                        <li>{{ k }}: {{ v }}</li>
-                    {% endif %}
-                {% endfor %}
-                </ul>
-            </tr>
-        {% endfor %}
+                    <!-- Next and previous buttons -->
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ strip_tags(results.data[animal_id].animalDescription) }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- The dots/circles -->
+                <div class="col-md-6" style="text-align:center">
+                    {% for picture in results.data[animal_id].animalPictures %}
+                        <span class="dot" onclick="currentSlide('{{ picture.mediaOrder }}')"></span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% for k, v in results.data[animal_id].items() %}
+                {% if v != ""  and k not in ["animalPictures", "animalDescription"] %}
+                    <li>{{ k }}: {{ v }}</li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </tr>
     </div>
 </body>
 <footer>

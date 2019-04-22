@@ -6,64 +6,120 @@ from api_projects.log import log
 import connexion
 import json
 
-start = 0
-stop = 20
-
 # Create the application instance
 app = connexion.FlaskApp(__name__, specification_dir='openapi/')
 
 
-@app.route("/animals", methods=["GET", "POST"])
-def home(start=start, stop=stop):
+@app.route("/animals")
+def animals_home(page=1):
     """
     This function just responds to the browser URL
     localhost:8090/
 
     :return:        the rendered template "home.html"
     """
-    if request.method == "POST":
-        start += 20
-        stop += 20
-        return redirect(url_for("home", start=start, stop=stop))
-    else:
-        default_filter = [
-            {
-                "fieldName": "animalSpecies",
-                "operation": "equals",
-                "criteria": "cat"
-            },
-            {
-                "fieldName": "animalLocation",
-                "operation": "greaterthan",
-                "criteria": "48103"
-            },
-            {
-                "fieldName": "animalLocation",
-                "operation": "lessthan",
-                "criteria": "48109"
-            },
-        ]
-        default_fields = [
-            "animalName",
-            "animalThumbnailUrl",
-            "animalSex",
-            "animalGeneralAge",
-            "animalLocationCitystate",
-            "locationAddress",
-        ]
-        log.debug("Attempting to gather API data")
-        results = api_post_req(
-            "rescue_group", start, stop, default_filter, default_fields
+    error = ""
+    default_filter = [
+        {
+            "fieldName": "animalSpecies",
+            "operation": "equals",
+            "criteria": "cat"
+        },
+        {
+            "fieldName": "animalLocation",
+            "operation": "greaterthan",
+            "criteria": "48103"
+        },
+        {
+            "fieldName": "animalLocation",
+            "operation": "lessthan",
+            "criteria": "48109"
+        },
+    ]
+    default_fields = [
+        "animalName",
+        "animalThumbnailUrl",
+        "animalSex",
+        "animalGeneralAge",
+        "animalLocationCitystate",
+        "locationAddress",
+    ]
+    log.debug("Attempting to gather API data")
+    start = (int(page) - 1) * 20
+    stop = int(page) * 20
+    results = api_post_req(
+        "rescue_group", start, stop, default_filter, default_fields
+    )
+    if results is not None:
+        result_dict = json.loads(results)
+        if not result_dict.get("data", {}):
+            error = "There were no results for your search"
+            return render_template("error.html", error=error)
+        return render_template(
+            "animals.html",
+            results=result_dict,
+            page=page,
+            limits=[start, stop],
         )
-        if results is not None:
-            result_dict = json.loads(results)
-            return render_template(
-                "animals.html",
-                results=result_dict,
-                limits=[start, stop],
-            )
-        else:
-            return render_template("error.html")
+    else:
+        return render_template("error.html", error=error)
+
+
+@app.route("/animals/<page>")
+def animals(page=None):
+    """
+    This function just responds to the browser URL
+    localhost:8090/
+
+    :return:        the rendered template "home.html"
+    """
+    error = ""
+    if page is None:
+        page = 1
+    default_filter = [
+        {
+            "fieldName": "animalSpecies",
+            "operation": "equals",
+            "criteria": "cat"
+        },
+        {
+            "fieldName": "animalLocation",
+            "operation": "greaterthan",
+            "criteria": "48103"
+        },
+        {
+            "fieldName": "animalLocation",
+            "operation": "lessthan",
+            "criteria": "48109"
+        },
+    ]
+    default_fields = [
+        "animalName",
+        "animalThumbnailUrl",
+        "animalSex",
+        "animalGeneralAge",
+        "animalLocationCitystate",
+        "locationAddress",
+    ]
+    log.debug("Attempting to gather API data")
+    start = (int(page) - 1) * 20
+    stop = int(page) * 20
+    results = api_post_req(
+        "rescue_group", start, stop, default_filter, default_fields
+    )
+    if results is not None:
+        result_dict = json.loads(results)
+        if not result_dict.get("data", {}):
+            error = "There were no results for your search"
+            return render_template("error.html", error=error)
+        return render_template(
+            "animals.html",
+            results=result_dict,
+            page=page,
+            limits=[start, stop],
+        )
+    else:
+        return render_template("error.html", error=error)
 
 
 @app.route("/animal/<animal_id>")
@@ -84,7 +140,6 @@ def animal(animal_id):
     default_fields = [
             "animalName",
             "animalDescription",
-            "animalThumbnailUrl",
             "animalPictures",
             "animalSex",
             "animalAdoptionFee",
@@ -93,10 +148,7 @@ def animal(animal_id):
             "animalAgeString",
             "animalGeneralAge",
             "animalLocationCitystate",
-            "animalLocationState",
-            "animalLocation",
             "locationAddress",
-            "locationUrl",
             "animalAffectionate",
             "animalApartment",
             "animalIntelligent",
@@ -110,7 +162,10 @@ def animal(animal_id):
     if results is not None:
         result_dict = json.loads(results)
         return render_template(
-            "animal.html", results=result_dict, strip_tags=strip_tags
+            "animal.html",
+            results=result_dict,
+            animal_id=animal_id,
+            strip_tags=strip_tags,
         )
     else:
         return render_template("error.html")

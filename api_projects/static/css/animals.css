@@ -20,20 +20,48 @@ ul {
 	margin-bottom: 0 !important;
 }
 
-a:link {
+td a:link {
     color: #1DB954;
 }
 
-a:visited {
+td a:visited {
     color: #ff9933;
 }
 
-a:hover {
+td a:hover {
     color: #00ccff !important;
 }
 
 table {
 	margin-bottom: 0 !important;
+}
+
+img.thumb {
+	border-radius: 0.5em;
+	border: 0.25em solid grey !important;
+}
+
+.next-previous-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a.next-previous {
+  text-decoration: none;
+  display: inline-block;
+  padding: .75em 1.5em;
+  margin:0 auto;
+}
+
+a.next-previous:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.next-previous {
+  background-color: white;
+  color: black;
 }
 
 .fab {

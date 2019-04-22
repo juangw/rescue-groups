@@ -7,20 +7,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <title>API Home Page</title>
+    <title>Animal Rescue Group</title>
 </head>
 <body>
     <header>
         <div class="header">
-            <h2>Animal Rescue Groups</h2>
+            <h2>Animals</h2>
             <p>Results Found: {{ results.foundRows }}</p>
-            <p>{{ types }}</p>
         </div>
     </header>
     <div class="wrapper">
         <div class="wrapper-bg"></div>
-        <p>{{ types }}</p>
-        <p>{{ limits }}</p>
+        <p>Showing results from {{ limits[0] }}-{{ limits[1] }}</p>
          <table class="table table-dark">
             <thead>
                 <tr>
@@ -39,7 +37,7 @@
                     <th scope="row">{{ id }}</th>
                     <td>
                         <a href="{{ url_for('animal', animal_id=id) }}">
-                            <img src="{{ animal.animalThumbnailUrl }}" alt="Pet Thumbnail">
+                            <img src="{{ animal.animalThumbnailUrl }}" class="thumb" alt="Pet Thumbnail">
                         </a>
                     </td>
                     <td>
@@ -56,6 +54,17 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="next-previous-btns">
+            {% if page|int > 2  %}
+                <a href="{{ url_for('animals', page=page|int-1) }}" class="next-previous">Previous &raquo;</a>
+            {% elif page|int == 2  %}
+                <a href="{{ url_for('animals_home') }}" class="next-previous">Previous &raquo;</a>
+            {% endif %}
+            {% if results.foundRows > limits[1] %}
+                <a href="{{ url_for('animals', page=page|int+1) }}" class="next-previous">Next &raquo;</a>
+            {% endif %}
+            <br>
+        </div>
     </div>
 </body>
 <footer>
