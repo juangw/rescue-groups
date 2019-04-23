@@ -56,9 +56,9 @@
         </table>
         <div class="next-previous-btns">
             {% if page|int > 2  %}
-                <a href="{{ url_for('animals', page=page|int-1) }}" class="next-previous">Previous &raquo;</a>
+                <a href="{{ url_for('animals', page=page|int-1) }}" class="next-previous"> &laquo; Previous</a>
             {% elif page|int == 2  %}
-                <a href="{{ url_for('animals_home') }}" class="next-previous">Previous &raquo;</a>
+                <a href="{{ url_for('animals_home') }}" class="next-previous"> &laquo; Previous</a>
             {% endif %}
             {% if results.foundRows > limits[1] %}
                 <a href="{{ url_for('animals', page=page|int+1) }}" class="next-previous">Next &raquo;</a>
