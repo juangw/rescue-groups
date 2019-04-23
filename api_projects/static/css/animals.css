@@ -6,7 +6,7 @@ html, body {
     height: 100%;
 }
 
-p, li, h2, td, th {
+p, li, h2, td, th, label {
 	color: white !important;
 	margin: 0 !important;
 }

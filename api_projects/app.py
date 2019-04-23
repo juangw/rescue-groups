@@ -1,6 +1,7 @@
 from src.rescue_group.utils.call_rescue_group import api_post_req
 from src.rescue_group.models.parser import strip_tags
-from flask import render_template, request, redirect, url_for
+from src.rescue_group.utils.all_fields import ALL_FIELDS
+from flask import render_template
 from api_projects.log import log
 
 import connexion
@@ -137,24 +138,7 @@ def animal(animal_id):
             "criteria": animal_id
         }
     ]
-    default_fields = [
-            "animalName",
-            "animalDescription",
-            "animalPictures",
-            "animalSex",
-            "animalAdoptionFee",
-            "animalColor",
-            "animalEyeColor",
-            "animalAgeString",
-            "animalGeneralAge",
-            "animalLocationCitystate",
-            "locationAddress",
-            "animalAffectionate",
-            "animalApartment",
-            "animalIntelligent",
-            "animalLap",
-            "animalActivityLevel"
-        ]
+    default_fields = ALL_FIELDS
     log.debug("Attempting to gather API data")
     results = api_post_req(
         "rescue_group", 0, 1, animal_filter, default_fields
