@@ -6,7 +6,7 @@ html, body {
     height: 100%;
 }
 
-p, li, h2, td {
+p, li, h2, td, h3 {
     color: white !important;
 }
 
@@ -16,12 +16,24 @@ h2 {
 
 ul {
     margin-bottom: 0 !important;
+    display:inline-block;
+    border:.5em solid white;
+    padding:1.5em;
+}
+
+img {
+    display:block;
+    margin:auto;
+}
+
+.slideshow-container {
+  padding-left: 0em !important;
 }
 
 .fab {
-  font-size: 3em !important;
-  float: right;
-  margin-right: 1em;
+    font-size: 3em !important;
+    float: right;
+    margin-right: 1em;
 }
 
 .header {

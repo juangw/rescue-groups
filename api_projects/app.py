@@ -134,7 +134,7 @@ def animal(animal_id):
     default_fields = ALL_FIELDS
     log.debug("Attempting to gather API data")
     results = api_post_req(
-        "rescue_group", 0, 1, animal_filter, default_fields
+        "rescue_group", 0, animal_filter, default_fields
     )
     if results is not None:
         result_dict = json.loads(results)
