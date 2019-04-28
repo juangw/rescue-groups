@@ -28,15 +28,14 @@ session = Session()
 class Animals(Base):
     __tablename__ = "animals"
 
-    animal_id = Column(Integer, primary_key=True)
-    zip_code = Column(Integer, nullable=False)
-    phone_number = Column(Text)
-    eye_color = Column(Text)
-    color = Column(Text)
-    name = Column(Text)
-    cost = Column(Text)
-    age = Column(Text)
-    sex = Column(Text)
+    id = Column(Integer, primary_key=True)
+    location = Column(Text, nullable=True)
+    eye_color = Column(Text, nullable=True)
+    color = Column(Text, nullable=True)
+    name = Column(Text, nullable=True)
+    cost = Column(Text, nullable=True)
+    age = Column(Text, nullable=True)
+    sex = Column(Text, nullable=True)
 
     created_date = Column(DateTime, server_default=func.now())
 

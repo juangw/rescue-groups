@@ -27,14 +27,9 @@ def animals_home(page=1):
             "criteria": "cat"
         },
         {
-            "fieldName": "animalLocation",
-            "operation": "greaterthan",
-            "criteria": "48103"
-        },
-        {
-            "fieldName": "animalLocation",
-            "operation": "lessthan",
-            "criteria": "48109"
+            "fieldName": "animalLocationCitystate",
+            "operation": "equals",
+            "criteria": "Ann Arbor, MI"
         },
     ]
     default_fields = [
@@ -47,9 +42,8 @@ def animals_home(page=1):
     ]
     log.debug("Attempting to gather API data")
     start = (int(page) - 1) * 20
-    stop = int(page) * 20
     results = api_post_req(
-        "rescue_group", start, stop, default_filter, default_fields
+        "rescue_group", start, default_filter, default_fields
     )
     if results is not None:
         result_dict = json.loads(results)
@@ -60,7 +54,7 @@ def animals_home(page=1):
             "animals.html",
             results=result_dict,
             page=page,
-            limits=[start, stop],
+            limits=[start, start+20],
         )
     else:
         return render_template("error.html", error=error)
@@ -104,9 +98,8 @@ def animals(page=None):
     ]
     log.debug("Attempting to gather API data")
     start = (int(page) - 1) * 20
-    stop = int(page) * 20
     results = api_post_req(
-        "rescue_group", start, stop, default_filter, default_fields
+        "rescue_group", start, default_filter, default_fields
     )
     if results is not None:
         result_dict = json.loads(results)
@@ -117,7 +110,7 @@ def animals(page=None):
             "animals.html",
             results=result_dict,
             page=page,
-            limits=[start, stop],
+            limits=[start, start+20],
         )
     else:
         return render_template("error.html", error=error)

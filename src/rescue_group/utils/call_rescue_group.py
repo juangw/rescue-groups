@@ -4,11 +4,11 @@ from api_projects.log import log
 import requests
 
 
-def api_post_req(topic, start, stop, filters=[], fields=[]):
+def api_post_req(topic, start, filters=[], fields=[]):
     """Sends get request to the given api url"""
     api_info = get_api_key(topic)
     api_info.data["search"]["resultStart"] = start
-    api_info.data["search"]["resultLimit"] = stop
+    api_info.data["search"]["resultLimit"] = 20
     if filters:
         api_info.data["search"]["filters"].extend(filters)
     if fields:
