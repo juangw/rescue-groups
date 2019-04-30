@@ -1,18 +1,18 @@
 from src.rescue_group.utils.call_rescue_group import api_post_req
 from src.rescue_group.models.parser import strip_tags
 from src.rescue_group.utils.all_fields import ALL_FIELDS
-from flask import render_template
+from flask import render_template, request
 from api_projects.log import log
 
 import connexion
 import json
 
 # Create the application instance
-app = connexion.FlaskApp(__name__, specification_dir='openapi/')
+app = connexion.FlaskApp(__name__, specification_dir="openapi/")
 
 
 @app.route("/animals")
-def animals_home(page=1):
+def animals(page=1):
     """
     This function just responds to the browser URL
     localhost:8090/
@@ -60,34 +60,62 @@ def animals_home(page=1):
         return render_template("error.html", error=error)
 
 
-@app.route("/animals/<page>")
-def animals(page=None):
+@app.route("/animals/<page>", methods=["GET", "POST"])
+@app.route("/animals/<page>/<age>", methods=["GET", "POST"])
+@app.route("/animals/<page>/<gender>", methods=["GET", "POST"])
+@app.route("/animals/<page>/<location>", methods=["GET", "POST"])
+@app.route("/animals/<page>/<age>/<gender>", methods=["GET", "POST"])
+@app.route("/animals/<page>/<age>/<location>", methods=["GET", "POST"])
+@app.route("/animals/<page>/<gender>/<location>", methods=["GET", "POST"])
+@app.route("/animals/<page>/<age>/<gender>/<location>", methods=["GET", "POST"])
+def animals_page_filter(page):
     """
     This function just responds to the browser URL
     localhost:8090/
 
     :return:        the rendered template "home.html"
     """
+    gender = request.form.get("gender", None)
+    location = request.form.get("location", None)
+    age = request.form.get("age", None)
     error = ""
-    if page is None:
-        page = 1
     default_filter = [
         {
             "fieldName": "animalSpecies",
             "operation": "equals",
             "criteria": "cat"
         },
-        {
-            "fieldName": "animalLocation",
-            "operation": "greaterthan",
-            "criteria": "48103"
-        },
-        {
-            "fieldName": "animalLocation",
-            "operation": "lessthan",
-            "criteria": "48109"
-        },
     ]
+    if page is None:
+        page = 1
+    if age is not None:
+        age_filter = {
+            "fieldName": "animalGeneralAge",
+            "operation": "equals",
+            "criteria": age
+        }
+        default_filter.append(age_filter)
+    if gender is not None:
+        gender_filter = {
+            "fieldName": "animalSex",
+            "operation": "equals",
+            "criteria": gender
+        }
+        default_filter.append(gender_filter)
+    if location is not None:
+        location_filter = {
+            "fieldName": "animalLocationCitystate",
+            "operation": "equals",
+            "criteria": location
+        }
+        default_filter.append(location_filter)
+    else:
+        location_filter = {
+            "fieldName": "animalLocationCitystate",
+            "operation": "equals",
+            "criteria": "Ann Arbor, MI"
+        }
+        default_filter.append(location_filter)
     default_fields = [
         "animalName",
         "animalThumbnailUrl",
@@ -149,5 +177,5 @@ def animal(animal_id):
 
 
 def run():
-    # app.add_api('my_api.yaml')
+    # app.add_api("my_api.yaml")
     app.run(debug=True, host="0.0.0.0", port=8080)
