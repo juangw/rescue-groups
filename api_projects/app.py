@@ -12,6 +12,7 @@ app = connexion.FlaskApp(__name__, specification_dir="openapi/")
 
 
 @app.route("/animals")
+@app.route("/animals/")
 def animals(page=1):
     """
     This function just responds to the browser URL
@@ -61,23 +62,33 @@ def animals(page=1):
 
 
 @app.route("/animals/<page>", methods=["GET", "POST"])
-@app.route("/animals/<page>/<age>", methods=["GET", "POST"])
-@app.route("/animals/<page>/<gender>", methods=["GET", "POST"])
-@app.route("/animals/<page>/<location>", methods=["GET", "POST"])
-@app.route("/animals/<page>/<age>/<gender>", methods=["GET", "POST"])
-@app.route("/animals/<page>/<age>/<location>", methods=["GET", "POST"])
-@app.route("/animals/<page>/<gender>/<location>", methods=["GET", "POST"])
-@app.route("/animals/<page>/<age>/<gender>/<location>", methods=["GET", "POST"])
-def animals_page_filter(page):
+@app.route("/animals/<page>/age-<age>", methods=["GET", "POST"])
+@app.route("/animals/<page>/gender-<gender>", methods=["GET", "POST"])
+@app.route("/animals/<page>/loc-<location>", methods=["GET", "POST"])
+@app.route(
+    "/animals/<page>/age-<age>/gender-<gender>", methods=["GET", "POST"]
+)
+@app.route("/animals/<page>/age-<age>/loc-<location>", methods=["GET", "POST"])
+@app.route(
+    "/animals/<page>/gender-<gender>/loc-<location>", methods=["GET", "POST"]
+)
+@app.route(
+    "/animals/<page>/age-<age>/gender-<gender>/loc-<location>",
+    methods=["GET", "POST"],
+)
+def animals_page_filter(page=None, age=None, gender=None, location=None):
     """
     This function just responds to the browser URL
     localhost:8090/
 
     :return:        the rendered template "home.html"
     """
-    gender = request.form.get("gender", None)
-    location = request.form.get("location", None)
-    age = request.form.get("age", None)
+    if gender is None:
+        gender = request.form.get("gender", None)
+    if location is None:
+        location = request.form.get("location", None)
+    if age is None:
+        age = request.form.get("age", None)
     error = ""
     default_filter = [
         {
@@ -88,21 +99,21 @@ def animals_page_filter(page):
     ]
     if page is None:
         page = 1
-    if age is not None:
+    if age not in [None, "None"]:
         age_filter = {
             "fieldName": "animalGeneralAge",
             "operation": "equals",
             "criteria": age
         }
         default_filter.append(age_filter)
-    if gender is not None:
+    if gender not in [None, "None"]:
         gender_filter = {
             "fieldName": "animalSex",
             "operation": "equals",
             "criteria": gender
         }
         default_filter.append(gender_filter)
-    if location is not None:
+    if location not in ["", None, "None"]:
         location_filter = {
             "fieldName": "animalLocationCitystate",
             "operation": "equals",
@@ -124,6 +135,7 @@ def animals_page_filter(page):
         "animalLocationCitystate",
         "locationAddress",
     ]
+    log.info(f"FILTER: {default_filter}\nPAGE: {page}")
     log.debug("Attempting to gather API data")
     start = (int(page) - 1) * 20
     results = api_post_req(
@@ -138,6 +150,9 @@ def animals_page_filter(page):
             "animals.html",
             results=result_dict,
             page=page,
+            age=age,
+            gender=gender,
+            location=location,
             limits=[start, start+20],
         )
     else:
