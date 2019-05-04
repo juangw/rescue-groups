@@ -59,6 +59,13 @@ a.next-previous:hover {
   color: black;
 }
 
+.cart {
+	height: 3em;
+	width: 3em;
+	float: right;
+	margin-right: 1em;
+}
+
 .next-previous {
   background-color: white;
   color: black;

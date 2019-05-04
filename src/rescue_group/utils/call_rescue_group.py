@@ -1,14 +1,16 @@
 from common.utils.construct_payload import get_api_key
+from src.rescue_group.utils.all_fields import SAVED_FIELDS
 from api_projects.log import log
 
 import requests
 
 
-def api_post_req(topic, start, filters=[], fields=[]):
+def api_post_req(topic, start, filters=[], fields=[], display_all=False):
     """Sends get request to the given api url"""
     api_info = get_api_key(topic)
     api_info.data["search"]["resultStart"] = start
-    api_info.data["search"]["resultLimit"] = 20
+    if not display_all:
+        api_info.data["search"]["resultLimit"] = 20
     if filters:
         api_info.data["search"]["filters"].extend(filters)
     if fields:
@@ -42,17 +44,8 @@ def animal_by_id_req(topic, animal_id):
         "operation": "equals",
         "criteria": animal_id
     }]
-    schema_fields = [
-        "animalLocationCitystate",
-        "animalEyeColor",
-        "animalColor",
-        "animalName",
-        "animalDescription",
-        "animalGeneralAge",
-        "animalSex",
-    ]
     api_info.data["search"]["filters"].extend(id_filter)
-    api_info.data["search"]["fields"].extend(schema_fields)
+    api_info.data["search"]["fields"].extend(SAVED_FIELDS)
 
     api_url = api_info.url
     api_data = api_info.data

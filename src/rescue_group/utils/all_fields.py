@@ -265,3 +265,25 @@ ALL_FIELDS = [
     "animalGroups",
     "animalExportAccounts"
 ]
+
+SAVED_FIELDS = [
+    "animalName",
+    "animalSex",
+    "animalGeneralAge",
+    "animalDescription",
+    "animalLocationCitystate",
+    "animalColor",
+    "animalEyeColor",
+    "animalThumbnailUrl"
+]
+
+FIELD_MAPPING = {
+    "animalLocationCitystate": "location",
+    "animalEyeColor": "eye_color",
+    "animalColor": "color",
+    "animalName": "name",
+    "animalDescription": "description",
+    "animalGeneralAge": "age",
+    "animalSex": "sex",
+    "animalThumbnailUrl": "thumbnail"
+}

@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+            $(".btn.save").bind("click", function() {
+                var animal_id = this.id
+                $.getJSON('/save-animal/' + animal_id,
+                    function(animal_id) {
+                });
+                return false;
+            });
+        });
+    </script>
     <title>Animal Rescue Group</title>
 </head>
 <body>
@@ -14,7 +26,11 @@
         <div class="header">
             <h2>Animal Rescue Group</h2>
             <p>Results Found: {{ results.foundRows }}</p>
-            <p>Showing results from {{ limits[0] }}-{{ limits[1] }}</p>
+            <p>Showing results from {{ limits[0] }}-{{ limits[1] }}
+            <a href="{{ url_for('animals_saved') }}">
+                <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
+            </a>
+            </p>
             {% if location %}
                 <p>Searching for cats in {{ location }}</p>
             {% else %}
@@ -111,7 +127,7 @@
                     <td>{{ animal.animalGeneralAge }}</td>
                     <td>{{ animal.animalLocationCitystate }}</td>
                     <td>
-                        <input type="button" class="btn save" value="Save"/>
+                        <input type="button" class="btn save" id="{{ id }}" value="Save"/>
                         <input type="button" class="btn info" value="Info" onclick="window.location.href = '{{ url_for('animal', animal_id=id) }}';"/>
                     </td>
                 </tr>
@@ -131,8 +147,10 @@
                 <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, age=age) }}" class="next-previous"> &laquo; Previous</a>
             {% elif page|int >= 2 and gender and location and not gender %}
                 <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender) }}" class="next-previous"> &laquo; Previous</a>
-            {% elif page|int >= 2 and gender and location and gender %}
+            {% elif page|int >= 2 and age and location and gender %}
                 <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender, age=age) }}" class="next-previous"> &laquo; Previous</a>
+            {% elif page|int >= 2 and not age and not location and not gender %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1) }}" class="next-previous"> &laquo; Previous</a>
             {% endif %}
             {% if results.foundRows > limits[1] and age and not gender and not location %}
                 <a href="{{ url_for('animals_page_filter', page=page|int+1, age=age) }}" class="next-previous">Next &raquo;</a>
@@ -146,8 +164,10 @@
                 <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, age=age) }}" class="next-previous">Next &raquo;</a>
             {% elif results.foundRows > limits[1] and gender and location and not gender%}
                 <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, gender=gender) }}" class="next-previous">Next &raquo;</a>
-            {% elif results.foundRows > limits[1] and gender and location and gender%}
+            {% elif results.foundRows > limits[1] and age and location and gender%}
                 <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, gender=gender, age=age) }}" class="next-previous">Next &raquo;</a>
+            {% elif results.foundRows > limits[1] and not age and not location and not gender%}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1) }}" class="next-previous">Next &raquo;</a>
             {% endif %}
             <br>
         </div>

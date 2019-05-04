@@ -34,6 +34,7 @@ class Animals(Base):
     color = Column(Text, nullable=True)
     name = Column(Text, nullable=True)
     description = Column(Text, nullable=True)
+    thumbnail = Column(Text, nullable=True)
     age = Column(Text, nullable=True)
     sex = Column(Text, nullable=True)
 

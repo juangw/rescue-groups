@@ -1,6 +1,7 @@
 from src.rescue_group.utils.call_rescue_group import api_post_req
 from src.rescue_group.models.parser import strip_tags
 from src.rescue_group.utils.all_fields import ALL_FIELDS
+from src.rescue_group.utils.db_query import save_animal, list_saved_animals
 from flask import render_template, request
 from api_projects.log import log
 
@@ -9,11 +10,20 @@ import json
 
 # Create the application instance
 app = connexion.FlaskApp(__name__, specification_dir="openapi/")
+default_fields = [
+    "animalName",
+    "animalThumbnailUrl",
+    "animalSex",
+    "animalGeneralAge",
+    "animalLocationCitystate",
+    "locationAddress",
+]
 
 
+@app.route("/")
 @app.route("/animals")
 @app.route("/animals/")
-def animals(page=1):
+def home(page=1):
     """
     This function just responds to the browser URL
     localhost:8090/
@@ -33,14 +43,6 @@ def animals(page=1):
             "criteria": "Ann Arbor, MI"
         },
     ]
-    default_fields = [
-        "animalName",
-        "animalThumbnailUrl",
-        "animalSex",
-        "animalGeneralAge",
-        "animalLocationCitystate",
-        "locationAddress",
-    ]
     log.debug("Attempting to gather API data")
     start = (int(page) - 1) * 20
     results = api_post_req(
@@ -55,10 +57,29 @@ def animals(page=1):
             "animals.html",
             results=result_dict,
             page=page,
+            save_animal=save_animal,
             limits=[start, start+20],
         )
     else:
         return render_template("error.html", error=error)
+
+
+@app.route("/saved-animals")
+def animals_saved():
+    """
+    This function just responds to the browser URL
+    localhost:8090/
+
+    :return:        the rendered template "home.html"
+    """
+    try:
+        saved_animals = list_saved_animals()
+        return render_template(
+            "saved.html",
+            results=saved_animals,
+        )
+    except Exception as e:
+        return render_template("error.html", error=e)
 
 
 @app.route("/animals/<page>", methods=["GET", "POST"])
@@ -127,19 +148,11 @@ def animals_page_filter(page=None, age=None, gender=None, location=None):
             "criteria": "Ann Arbor, MI"
         }
         default_filter.append(location_filter)
-    default_fields = [
-        "animalName",
-        "animalThumbnailUrl",
-        "animalSex",
-        "animalGeneralAge",
-        "animalLocationCitystate",
-        "locationAddress",
-    ]
     log.info(f"FILTER: {default_filter}\nPAGE: {page}")
     log.debug("Attempting to gather API data")
     start = (int(page) - 1) * 20
     results = api_post_req(
-        "rescue_group", start, default_filter, default_fields
+        "rescue_group", start, default_filter, default_fields, True
     )
     if results is not None:
         result_dict = json.loads(results)
@@ -153,6 +166,7 @@ def animals_page_filter(page=None, age=None, gender=None, location=None):
             age=age,
             gender=gender,
             location=location,
+            save_animal=save_animal,
             limits=[start, start+20],
         )
     else:
@@ -185,10 +199,22 @@ def animal(animal_id):
             "animal.html",
             results=result_dict,
             animal_id=animal_id,
+            save_animal=save_animal,
             strip_tags=strip_tags,
         )
     else:
         return render_template("error.html")
+
+
+@app.route("/save-animal/<animal_id>")
+def save_animals(animal_id):
+    """
+    This function just responds to the browser URL
+    localhost:8090/
+
+    :return:        the rendered template "home.html"
+    """
+    save_animal(animal_id)
 
 
 def run():
