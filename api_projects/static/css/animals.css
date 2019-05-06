@@ -87,6 +87,11 @@ a.next-previous:hover {
   font-size: 1em !important;
 }
 
+.btn.remove {
+	background-color: red;
+	margin: .5em !important;
+}
+
 .btn.save {
 	background-color: #1DB954;
 	margin: .5em !important;

@@ -1,7 +1,9 @@
 from src.rescue_group.utils.call_rescue_group import api_post_req
 from src.rescue_group.models.parser import strip_tags
 from src.rescue_group.utils.all_fields import ALL_FIELDS
-from src.rescue_group.utils.db_query import save_animal, list_saved_animals
+from src.rescue_group.utils.db_query import (
+    save_animal, remove_animal, list_saved_animals
+)
 from flask import render_template, request
 from api_projects.log import log
 
@@ -77,6 +79,7 @@ def animals_saved():
         return render_template(
             "saved.html",
             results=saved_animals,
+            count=len(saved_animals),
         )
     except Exception as e:
         return render_template("error.html", error=e)
@@ -215,6 +218,17 @@ def save_animals(animal_id):
     :return:        the rendered template "home.html"
     """
     save_animal(animal_id)
+
+
+@app.route("/remove-animal/<animal_id>", methods=["GET", "POST"])
+def remove_animals(animal_id):
+    """
+    This function just responds to the browser URL
+    localhost:8090/
+
+    :return:        the rendered template "home.html"
+    """
+    removed = remove_animal(animal_id)
 
 
 def run():

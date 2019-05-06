@@ -36,6 +36,26 @@ def save_animal(animal_id):
         return False
 
 
+def remove_animal(animal_id):
+    """
+        Saves a specific animal to database for storage
+
+        :param animal_id: int of unique id for animal
+    """
+    log.info(f"Removing ID: {animal_id}")
+    session.query(
+        Animals
+    ).filter(
+        Animals.id == int(animal_id)
+    ).delete()
+    try:
+        session.commit()
+        return True
+    except Exception:
+        session.rollback()
+        return False
+
+
 def list_saved_animals():
     """
         Lists all saved animals by the user

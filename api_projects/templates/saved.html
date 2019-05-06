@@ -7,16 +7,28 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+            $(".btn.remove").bind("click", function() {
+                var animal_id = this.id
+                $.getJSON('/remove-animal/' + animal_id,
+                    function(animal_id) {
+                });
+                return false;
+            });
+        });
+    </script>
     <title>Animal Rescue Group</title>
 </head>
 <body>
     <header>
         <div class="header">
             <h2>Saved Animals</h2>
+            <p>Animals Saved: {{ count }}</p>
             <a href="{{ url_for('animals_saved') }}">
                  <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
             </a>
-            </p>
         </div>
     </header>
     <div class="wrapper">
@@ -51,7 +63,7 @@
                     <td>{{ animal.location }}</td>
                     <td>{{ animal.description }}</td>
                     <td>
-                        <input type="button" class="btn save" value="Save"/>
+                        <input type="button" class="btn remove" id="{{ animal.id }}" value="Remove"/>
                         <input type="button" class="btn info" value="Info" onclick="window.location.href = '{{ url_for('animal', animal_id=animal.id) }}';"/>
                     </td>
                 </tr>
