@@ -25,23 +25,24 @@
     <header>
         <div class="header">
             <h2>Animal Rescue Group</h2>
-            <p>Results Found: {{ results.foundRows }}</p>
-            <p>Showing results from {{ limits[0] }}-{{ limits[1] }}
+            <p style="text-indent: 40px">Results Found: {{ results.foundRows }}</p>
+            <p style="text-indent: 40px">Showing results from {{ limits[0] }}-{{ limits[1] }}
             <a href="{{ url_for('animals_saved') }}">
                 <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
             </a>
             </p>
             {% if location %}
-                <p>Searching for cats in {{ location }}</p>
+                <p style="text-indent: 40px">Searching for cats in {{ location }}</p>
             {% else %}
-                <p>Searching for cats in Ann Arbor, MI</p>
+                <p style="text-indent: 40px">Searching for cats in Ann Arbor, MI</p>
             {% endif %}
         </div>
     </header>
     <div class="wrapper">
         <div class="wrapper-bg"></div>
+        <br>
         <form action="{{ url_for('animals_page_filter', page=1|int) }}" method="POST">
-            <label>Age Filter</label>
+            <label style="text-indent: 40px">Age Filter:</label>
             <select name="age">
                  {% if age == "Baby" %}
                     <option value="None">None</option>
@@ -75,7 +76,7 @@
                     <option value="Senior">Senior</option>
                 {% endif %}
             </select>
-            <label>Gender Filter</label>
+            <label style="text-indent: 40px">Gender Filter:</label>
             <select name="gender">
                 {% if gender == "Male" %}
                     <option value="None">None</option>
@@ -91,7 +92,7 @@
                     <option value="Female">Female</option>
                 {% endif %}
             </select>
-            <label>Location Filter</label>
+            <label style="text-indent: 40px">Location Filter:</label>
             {% if location %}
                 <input name="location" type="text" placeholder="{{ location }}">
             {% else %}
@@ -175,7 +176,7 @@
 </body>
 <footer>
     <div class="footer">
-        <p>Created by William Juang</p>
+        <p style="text-indent: 40px">Created by William Juang</p>
         <a href="https://github.com/juangw/python-api-projects">
             <i class="fab fa-github"></i>
         </a>

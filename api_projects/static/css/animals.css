@@ -6,18 +6,23 @@ html, body {
     height: 100%;
 }
 
-p, li, h2, td, th, label {
-	color: white !important;
-	margin: 0 !important;
+h2 {
+	  color: black;
+	  text-align: center;
+}
+
+p, li, td, th, label {
+	  color: white !important;
+	  margin: 0 !important;
 }
 
 h2 {
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
+	  margin-top: 0 !important;
+	  margin-bottom: 0 !important;
 }
 
 ul {
-	margin-bottom: 0 !important;
+	  margin-bottom: 0 !important;
 }
 
 td a:link {
@@ -33,82 +38,83 @@ td a:hover {
 }
 
 table {
-	margin-bottom: 0 !important;
+	  margin-bottom: 0 !important;
 }
 
 img.thumb {
-	border-radius: 0.5em;
-	border: 0.25em solid grey !important;
+	  border-radius: 0.5em;
+	  border: 0.25em solid grey !important;
 }
 
 .next-previous-btns {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 a.next-previous {
-  text-decoration: none;
-  display: inline-block;
-  padding: .75em 1.5em;
-  margin:0 auto;
+    text-decoration: none;
+    display: inline-block;
+    padding: .75em 1.5em;
+    margin:0 auto;
 }
 
 a.next-previous:hover {
-  background-color: #ddd;
-  color: black;
+    background-color: #ddd;
+    color: black;
 }
 
 .cart {
-	height: 3em;
-	width: 3em;
-	float: right;
-	margin-right: 1em;
+	  height: 3em;
+	  width: 3em;
+	  float: right;
+	  margin-right: 1em;
 }
 
 .next-previous {
-  background-color: white;
-  color: black;
+    background-color: white;
+    color: black;
 }
 
 .fab {
-	font-size: 3em !important;
-	float: right;
+	  font-size: 3em !important;
+	  float: right;
   	margin-right: 1em;
 }
 
 .btn {
-  border-color: grey !important;
-  border-radius: 0.25em !important;
-  padding: 1em 2em !important;
-  text-align: center;
-  text-decoration: none !important;
-  display: block !important;
-  font-size: 1em !important;
+    color: white !important;
+    border-color: grey !important;
+    border-radius: 0.25em !important;
+    padding: 1em 2em !important;
+    text-align: center;
+    text-decoration: none !important;
+    display: block !important;
+    font-size: 1em !important;
 }
 
 .btn.remove {
-	background-color: red;
-	margin: .5em !important;
+	  background-color: red;
+	  margin: .5em !important;
 }
 
 .btn.save {
-	background-color: #1DB954;
-	margin: .5em !important;
+	  background-color: #1DB954;
+	  margin: .5em !important;
 }
 
 .btn.info {
-	background-color: #00ccff;
-	margin: .5em !important;
+	  background-color: #00ccff;
+	  margin: .5em !important;
 }
 
 .header {
-	background-color: #1DB954;
+	  background-color: #1DB954;
     height: 7em;
 }
 
 .wrapper {
-	min-height: 100%;
+	  min-height: 100%;
     height: auto !important;
     position: relative;
 }
@@ -130,6 +136,6 @@ a.next-previous:hover {
 }
 
 .footer {
-	background-color: #1DB954;
+	  background-color: #1DB954;
     height: 5em;
 }

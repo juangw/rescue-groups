@@ -38,22 +38,41 @@
           dots[slideIndex-1].className += " active";
         }
     </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+            $(".btn.save").bind("click", function() {
+                var animal_id = this.id
+                $.getJSON('/save-animal/' + animal_id,
+                    function(animal_id) {
+                });
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
         <div class="header">
             <h2>Animal Rescue Group</h2>
+            <p style="text-indent: 40px">Showing results for {{ results.data[animal_id].animalName }}
+            <a href="{{ url_for('animals_saved') }}">
+                <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
+            </a>
+            </p>
         </div>
     </header>
     <div class="wrapper">
         <div class="wrapper-bg"></div>
-        <h2>Information on {{ results.data[animal_id].animalName }}</h2>
+        <br>
+        <h3 style="text-indent: 40px">Summary for {{ results.data[animal_id].animalName }}</h3>
         <br>
         <div class="row">
             <div class="slideshow-container col-md-1"></div>
             <!-- Slideshow container -->
             <div class="slideshow-container col-md-5">
                 <div class="slideshow-container-bg"></div>
+                <h4>Animal Pictures</h4>
                 <!-- Full-width images with number and caption text -->
                 {% for picture in results.data[animal_id].animalPictures %}
                     {% if picture.mediaOrder == "1" %}
@@ -68,13 +87,12 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <h3>Animal Pictures</h3>
                 <!-- Next and previous buttons -->
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
             <div class="col-md-5">
-                <h3>Animal Description</h3>
+                <h4>Animal Description</h4>
                 <p>{{ strip_tags(results.data[animal_id].animalDescription) }}</p>
             </div>
             <div class="col-md-1"></div>
@@ -90,7 +108,7 @@
         <br>
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <h3>Other Information</h3>
                 <ul>
                 {% for k, v in results.data[animal_id].items() %}
@@ -100,13 +118,16 @@
                 {% endfor %}
                 </ul>
             </div>
+            <div class="col-md-4">
+                <input type="button" class="btn save" id="{{ animal_id }}" value="Save"/>
+            </div>
         </div>
         <br>
     </div>
 </body>
 <footer>
     <div class="footer">
-        <p>Created by William Juang</p>
+        <p style="text-indent: 40px">Created by William Juang</p>
         <a href="https://github.com/juangw/python-api-projects">
             <i class="fab fa-github"></i>
         </a>
