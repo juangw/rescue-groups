@@ -1,6 +1,5 @@
 build:
   docker:
-    context: ../
     web: .docker/Dockerfile
 setup:
   addons:
