@@ -6,7 +6,6 @@ RUN mkdir -p /usr/src/app
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-RUN cd ..
 RUN pip3 install -r requirements.txt
 RUN python setup.py develop
 
