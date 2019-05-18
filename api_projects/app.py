@@ -9,9 +9,11 @@ from api_projects.log import log
 
 import connexion
 import json
+import os
 
 # Create the application instance
 app = connexion.FlaskApp(__name__, specification_dir="openapi/")
+PORT = int(os.environ.get("PORT", 8080))
 default_fields = [
     "animalName",
     "animalThumbnailUrl",
@@ -233,4 +235,4 @@ def remove_animals(animal_id):
 
 def run():
     # app.add_api("my_api.yaml")
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=True, host="0.0.0.0", port=PORT)
