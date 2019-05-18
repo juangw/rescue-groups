@@ -1,13 +1,14 @@
 # our base image
 FROM python:3.6.6
 
+RUN cd ../
+RUN ls
 
 RUN mkdir -p /usr/src/app
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-RUN cd ../
-RUN ls
+
 RUN pip3 install -r requirements.txt
 RUN python setup.py develop
 
