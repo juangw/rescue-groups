@@ -103,9 +103,17 @@ a.next-previous:hover {
 	  margin: .5em !important;
 }
 
+.btn.save:hover {
+    color: black !important;
+}
+
 .btn.info {
 	  background-color: #00ccff;
 	  margin: .5em !important;
+}
+
+.btn.info:hover {
+    color: black !important;
 }
 
 .header {
