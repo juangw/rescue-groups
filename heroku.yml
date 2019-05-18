@@ -2,3 +2,7 @@ build:
   docker:
     context: ../
     web: .docker/Dockerfile
+setup:
+  addons:
+  - plan: heroku-postgresql
+    as: DATABASE
