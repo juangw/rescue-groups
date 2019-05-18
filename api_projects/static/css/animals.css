@@ -103,7 +103,7 @@ a.next-previous:hover {
 	  margin: .5em !important;
 }
 
-.btn.save:hover {
+.btn.save:hover, .btn.remove:hover {
     color: black !important;
 }
 
