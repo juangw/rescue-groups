@@ -141,7 +141,7 @@ def animals_page_filter(page=None, age=None, gender=None, location=None):
         default_filter.append(gender_filter)
     if location not in ["", None, "None"]:
         location_filter = {
-            "fieldName": "animalLocation",
+            "fieldName": "locationPostalcode",
             "operation": "equals",
             "criteria": location
         }
