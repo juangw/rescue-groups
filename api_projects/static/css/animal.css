@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+h2 {
+    color: black;
+    text-align: center;
+}
+
+p, li, td, h3 {
+    color: white !important;
+    margin-top: 0em !important;
+}
+
+h4 {
+  color: white !important;
+  text-align: center;
+}
+
+h2 {
+    margin-top: 0 !important;
+}
+
+ul {
+    margin-bottom: 0 !important;
+    display:inline-block;
+    border:.5em solid white;
+    padding:1.5em;
+}
+
+img {
+    display:block;
+    margin:auto;
+}
+
+.cart {
+    height: 3em;
+    width: 3em;
+    float: right;
+    margin-right: 1em;
+}
+
+.btn {
+    color: white !important;
+    border-color: grey !important;
+    border-radius: 0.25em !important;
+    padding: 1em 2em !important;
+    text-align: center;
+    text-decoration: none !important;
+    display: block !important;
+    font-size: 1em !important;
+}
+
+.btn.save {
+    background-color: #1DB954;
+    margin: .5em !important;
+}
+
+.btn.save:hover {
+    color: black !important;
+}
+
+.slideshow-container {
+    padding-left: 0em !important;
+}
+
+.fab {
+    font-size: 3em !important;
+    float: right;
+    margin-right: 1em;
+}
+
+.header {
+    background-color: #1DB954;
+    height: 6em;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    position: relative;
+}
+
+.wrapper-bg {
+    background-image: url('/static/imgs/cat.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 80em;
+    position: absolute;
+    opacity: 0.8;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footer {
+    background-color: #1DB954;
+    height: 7em;
+}
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    margin: auto;
+}
+
+.slideshow-container-bg {
+    background: grey;
+    position: absolute;
+    opacity: 0.8;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+    opacity: 1 !important;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}

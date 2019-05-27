@@ -37,15 +37,15 @@ class DockerCLI(object):
         getattr(self, args.command)()
 
     def start(self):
-        call(["docker-compose -f .docker/docker-compose.yml up -d"],
+        call(["docker-compose -f docker-compose.yml up -d"],
              shell=True)
 
     def build(self):
-        call(["docker-compose -f .docker/docker-compose.yml build"],
+        call(["docker-compose -f docker-compose.yml build --no-cache"],
              shell=True)
 
     def stop(self):
-        call(["docker-compose -f .docker/docker-compose.yml down"],
+        call(["docker-compose -f docker-compose.yml down"],
              shell=True)
 
     def login(self):

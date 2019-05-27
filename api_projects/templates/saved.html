@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animals.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+            $(".btn.remove").bind("click", function() {
+                var animal_id = this.id
+                $.getJSON('/remove-animal/' + animal_id,
+                    function(animal_id) {
+                });
+                return false;
+            });
+        });
+    </script>
+    <title>Animal Rescue Group</title>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <h2>Saved Animals</h2>
+            <p style="text-indent: 40px">Animals Saved: {{ count }}</p>
+            <a href="{{ url_for('animals_saved') }}">
+                 <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
+            </a>
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="wrapper-bg"></div>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Animal ID #</th>
+                    <th scope="col">Thumbnail</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Zip Cod</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for animal in results %}
+                <tr>
+                    <th scope="row">{{ animal.id }}</th>
+                    <td>
+                        <a href="{{ url_for('animal', animal_id=animal.id) }}">
+                            <img src="{{ animal.thumbnail }}" class="thumb" alt="Pet Thumbnail">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('animal', animal_id=animal.id) }}">{{ animal.name }}</a>
+                    </td>
+                    <td>{{ animal.sex }}</td>
+                    <td>{{ animal.age }}</td>
+                    <td>{{ animal.location }}</td>
+                    <td>{{ animal.description }}</td>
+                    <td>
+                        <input type="button" class="btn remove" id="{{ animal.id }}" value="Remove"/>
+                        <input type="button" class="btn info" value="Info" onclick="window.location.href = '{{ url_for('animal', animal_id=animal.id) }}';"/>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+<footer>
+    <div class="footer">
+        <p style="text-indent: 40px">Created by William Juang</p>
+        <a href="https://github.com/juangw/python-api-projects">
+            <i class="fab fa-github"></i>
+        </a>
+    </div>
+</footer>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animals.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+            $(".btn.save").bind("click", function() {
+                var animal_id = this.id
+                $.getJSON('/save-animal/' + animal_id,
+                    function(animal_id) {
+                });
+                return false;
+            });
+        });
+    </script>
+    <title>Animal Rescue Group</title>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <h2>Animal Rescue Group</h2>
+            <p style="text-indent: 40px">Results Found: {{ results.foundRows }}</p>
+            <p style="text-indent: 40px">Showing results from {{ limits[0] }}-{{ limits[1] }}
+            <a href="{{ url_for('animals_saved') }}">
+                <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
+            </a>
+            </p>
+            {% if location %}
+                <p style="text-indent: 40px">Searching for cats in {{ location }}</p>
+            {% else %}
+                <p style="text-indent: 40px">Searching for cats in 48105</p>
+            {% endif %}
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="wrapper-bg"></div>
+        <br>
+        <form action="{{ url_for('animals_page_filter', page=1|int) }}" method="POST">
+            <label style="text-indent: 40px">Age Filter:</label>
+            <select name="age">
+                 {% if age == "Baby" %}
+                    <option value="None">None</option>
+                    <option value="Baby" selected>Baby</option>
+                    <option value="Young">Young</option>
+                    <option value="Adult">Adult</option>
+                    <option value="Senior">Senior</option>
+                {% elif age == "Young" %}
+                    <option value="None">None</option>
+                    <option value="Baby">Baby</option>
+                    <option value="Young" selected>Young</option>
+                    <option value="Adult">Adult</option>
+                    <option value="Senior">Senior</option>
+                {% elif age == "Adult" %}
+                    <option value="None">None</option>
+                    <option value="Baby">Baby</option>
+                    <option value="Young">Young</option>
+                    <option value="Adult" selected>Adult</option>
+                    <option value="Senior">Senior</option>
+                {% elif age == "Senior" %}
+                    <option value="None">None</option>
+                    <option value="Baby">Baby</option>
+                    <option value="Young">Young</option>
+                    <option value="Adult">Adult</option>
+                    <option value="Senior" selected>Senior</option>
+                {% else %}
+                    <option value="None" selected>None</option>
+                    <option value="Baby">Baby</option>
+                    <option value="Young">Young</option>
+                    <option value="Adult">Adult</option>
+                    <option value="Senior">Senior</option>
+                {% endif %}
+            </select>
+            <label style="text-indent: 40px">Gender Filter:</label>
+            <select name="gender">
+                {% if gender == "Male" %}
+                    <option value="None">None</option>
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                {% elif gender == "Female" %}
+                    <option value="None">None</option>
+                    <option value="Male">Male</option>
+                    <option value="Female" selected>Female</option>
+                {% else %}
+                    <option value="None" selected>None</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                {% endif %}
+            </select>
+            <label style="text-indent: 40px">Location Filter:</label>
+            {% if location %}
+                <input name="location" type="text" placeholder="{{ location }}">
+            {% else %}
+                <input name="location" type="text" placeholder="48105">
+            {% endif %}
+            <input type="submit">
+        </form>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Animal ID #</th>
+                    <th scope="col">Thumbnail</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Zip Code</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for id, animal in results.data.items() %}
+                <tr>
+                    <th scope="row">{{ id }}</th>
+                    <td>
+                        <a href="{{ url_for('animal', animal_id=id) }}">
+                            <img src="{{ animal.animalThumbnailUrl }}" class="thumb" alt="Pet Thumbnail">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('animal', animal_id=id) }}">{{ animal.animalName }}</a>
+                    </td>
+                    <td>{{ animal.animalSex }}</td>
+                    <td>{{ animal.animalGeneralAge }}</td>
+                    <td>{{ animal.animalLocation }}</td>
+                    <td>
+                        <input type="button" class="btn save" id="{{ id }}" value="Save"/>
+                        <input type="button" class="btn info" value="Info" onclick="window.location.href = '{{ url_for('animal', animal_id=id) }}';"/>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="next-previous-btns">
+            {% if page|int >= 2 and age and not gender and not location %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, age=age) }}" class="next-previous"> &laquo; Previous</a>
+            {% elif page|int >= 2 and gender and not age and not location %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, gender=gender) }}" class="next-previous"> &laquo; Previous</a>
+            {% elif page|int >= 2 and location and not age and not gender %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location) }}" class="next-previous"> &laquo; Previous</a>
+            {% elif page|int >= 2 and age and gender and not location %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, gender=gender, age=age) }}" class="next-previous"> &laquo; Previous</a>
+            {% elif page|int >= 2 and age and location and not gender %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, age=age) }}" class="next-previous"> &laquo; Previous</a>
+            {% elif page|int >= 2 and gender and location and not gender %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender) }}" class="next-previous"> &laquo; Previous</a>
+            {% elif page|int >= 2 and age and location and gender %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender, age=age) }}" class="next-previous"> &laquo; Previous</a>
+            {% elif page|int >= 2 and not age and not location and not gender %}
+                <a href="{{ url_for('animals_page_filter', page=page|int-1) }}" class="next-previous"> &laquo; Previous</a>
+            {% endif %}
+            {% if results.foundRows > limits[1] and age and not gender and not location %}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, age=age) }}" class="next-previous">Next &raquo;</a>
+            {% elif results.foundRows > limits[1] and gender and not age and not location%}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, gender=gender) }}" class="next-previous">Next &raquo;</a>
+            {% elif results.foundRows > limits[1] and location and not age and not gender%}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location) }}" class="next-previous">Next &raquo;</a>
+            {% elif results.foundRows > limits[1] and age and gender and not location%}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, gender=gender, age=age) }}" class="next-previous">Next &raquo;</a>
+            {% elif results.foundRows > limits[1] and age and location and not gender%}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, age=age) }}" class="next-previous">Next &raquo;</a>
+            {% elif results.foundRows > limits[1] and gender and location and not gender%}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, gender=gender) }}" class="next-previous">Next &raquo;</a>
+            {% elif results.foundRows > limits[1] and age and location and gender%}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, gender=gender, age=age) }}" class="next-previous">Next &raquo;</a>
+            {% elif results.foundRows > limits[1] and not age and not location and not gender%}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1) }}" class="next-previous">Next &raquo;</a>
+            {% endif %}
+            <br>
+        </div>
+    </div>
+</body>
+<footer>
+    <div class="footer">
+        <p style="text-indent: 40px">Created by William Juang</p>
+        <a href="https://github.com/juangw/python-api-projects">
+            <i class="fab fa-github"></i>
+        </a>
+    </div>
+</footer>
+</html>
