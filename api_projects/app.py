@@ -19,7 +19,7 @@ default_fields = [
     "animalThumbnailUrl",
     "animalSex",
     "animalGeneralAge",
-    "locationPostalcode",
+    "animalLocation",
     "locationAddress",
 ]
 
@@ -42,7 +42,7 @@ def home(page=1):
             "criteria": "cat"
         },
         {
-            "fieldName": "locationPostalcode",
+            "fieldName": "animalLocation",
             "operation": "equals",
             "criteria": "48105"
         },
@@ -141,14 +141,14 @@ def animals_page_filter(page=None, age=None, gender=None, location=None):
         default_filter.append(gender_filter)
     if location not in ["", None, "None"]:
         location_filter = {
-            "fieldName": "locationPostalcode",
+            "fieldName": "animalLocation",
             "operation": "equals",
             "criteria": location
         }
         default_filter.append(location_filter)
     else:
         location_filter = {
-            "fieldName": "locationPostalcode",
+            "fieldName": "animalLocation",
             "operation": "equals",
             "criteria": "48105"
         }

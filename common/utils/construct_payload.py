@@ -10,7 +10,7 @@ REQUEST = namedtuple("request_data", ["url", "data", "api_key"])
 
 def get_api_key(topic):
     """Gets api key based on url"""
-    if STAGE is "local":
+    if STAGE == "local":
         secrets = get_secret().decode()
         topic_secret = json.loads(secrets).get(topic)
         topic_url = topic_secret.get("url")

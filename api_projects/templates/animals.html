@@ -34,7 +34,7 @@
             {% if location %}
                 <p style="text-indent: 40px">Searching for cats in {{ location }}</p>
             {% else %}
-                <p style="text-indent: 40px">Searching for cats in Ann Arbor, MI</p>
+                <p style="text-indent: 40px">Searching for cats in 48105</p>
             {% endif %}
         </div>
     </header>
@@ -108,7 +108,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Gender</th>
                     <th scope="col">Age</th>
-                    <th scope="col">Location</th>
+                    <th scope="col">Zip Code</th>
                     <th scope="col">Options</th>
                 </tr>
             </thead>
@@ -126,7 +126,7 @@
                     </td>
                     <td>{{ animal.animalSex }}</td>
                     <td>{{ animal.animalGeneralAge }}</td>
-                    <td>{{ animal.locationPostalcode }}</td>
+                    <td>{{ animal.animalLocation }}</td>
                     <td>
                         <input type="button" class="btn save" id="{{ id }}" value="Save"/>
                         <input type="button" class="btn info" value="Info" onclick="window.location.href = '{{ url_for('animal', animal_id=id) }}';"/>
