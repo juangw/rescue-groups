@@ -96,7 +96,7 @@
             {% if location %}
                 <input name="location" type="text" placeholder="{{ location }}">
             {% else %}
-                <input name="location" type="text" placeholder="Ann Arbor, MI">
+                <input name="location" type="text" placeholder="48105">
             {% endif %}
             <input type="submit">
         </form>
@@ -126,7 +126,7 @@
                     </td>
                     <td>{{ animal.animalSex }}</td>
                     <td>{{ animal.animalGeneralAge }}</td>
-                    <td>{{ animal.animalLocationCitystate }}</td>
+                    <td>{{ animal.locationPostalcode }}</td>
                     <td>
                         <input type="button" class="btn save" id="{{ id }}" value="Save"/>
                         <input type="button" class="btn info" value="Info" onclick="window.location.href = '{{ url_for('animal', animal_id=id) }}';"/>
