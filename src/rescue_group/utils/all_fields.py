@@ -271,14 +271,14 @@ SAVED_FIELDS = [
     "animalSex",
     "animalGeneralAge",
     "animalDescription",
-    "animalLocationCitystate",
+    "animalLocation",
     "animalColor",
     "animalEyeColor",
     "animalThumbnailUrl"
 ]
 
 FIELD_MAPPING = {
-    "animalLocationCitystate": "location",
+    "animalLocation": "location",
     "animalEyeColor": "eye_color",
     "animalColor": "color",
     "animalName": "name",

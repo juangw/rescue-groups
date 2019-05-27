@@ -19,7 +19,7 @@ default_fields = [
     "animalThumbnailUrl",
     "animalSex",
     "animalGeneralAge",
-    "animalLocationCitystate",
+    "animalLocation",
     "locationAddress",
 ]
 
@@ -42,9 +42,9 @@ def home(page=1):
             "criteria": "cat"
         },
         {
-            "fieldName": "animalLocationCitystate",
+            "fieldName": "animalLocation",
             "operation": "equals",
-            "criteria": "Ann Arbor, MI"
+            "criteria": "48105"
         },
     ]
     log.debug("Attempting to gather API data")
@@ -141,16 +141,16 @@ def animals_page_filter(page=None, age=None, gender=None, location=None):
         default_filter.append(gender_filter)
     if location not in ["", None, "None"]:
         location_filter = {
-            "fieldName": "animalLocationCitystate",
+            "fieldName": "animalLocation",
             "operation": "equals",
             "criteria": location
         }
         default_filter.append(location_filter)
     else:
         location_filter = {
-            "fieldName": "animalLocationCitystate",
+            "fieldName": "animalLocation",
             "operation": "equals",
-            "criteria": "Ann Arbor, MI"
+            "criteria": "48105"
         }
         default_filter.append(location_filter)
     log.info(f"FILTER: {default_filter}\nPAGE: {page}")
