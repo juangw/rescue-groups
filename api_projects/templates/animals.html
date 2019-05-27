@@ -34,7 +34,11 @@
             {% if location %}
                 <p style="text-indent: 40px">Searching for cats in {{ location }}</p>
             {% else %}
-                <p style="text-indent: 40px">Searching for cats in 48105</p>
+                {% if distance %}
+                    <p style="text-indent: 40px">Searching for cats in 48105 with radius of {{ distance }} miles</p>
+                {% else %}
+                    <p style="text-indent: 40px">Searching for cats in 48105 with radius of 0 miles</p>
+                {% endif %}
             {% endif %}
         </div>
     </header>
@@ -98,6 +102,8 @@
             {% else %}
                 <input name="location" type="text" placeholder="48105">
             {% endif %}
+            <label style="text-indent: 40px">Distance Radius(miles):</label>
+            <input name="distance" type="text" placeholder="0">
             <input type="submit">
         </form>
         <table class="table table-dark">

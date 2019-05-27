@@ -102,7 +102,7 @@ def animals_saved():
     "/animals/<page>/age-<age>/gender-<gender>/loc-<location>",
     methods=["GET", "POST"],
 )
-def animals_page_filter(page=None, age=None, gender=None, location=None):
+def animals_page_filter(page=None, age=None, gender=None, location=None, distance=None):
     """
     This function just responds to the browser URL
     localhost:8090/
@@ -115,6 +115,8 @@ def animals_page_filter(page=None, age=None, gender=None, location=None):
         location = request.form.get("location", None)
     if age is None:
         age = request.form.get("age", None)
+    if distance is None:
+        distance = request.form.get("distance", None)
     error = ""
     default_filter = [
         {
@@ -153,6 +155,13 @@ def animals_page_filter(page=None, age=None, gender=None, location=None):
             "criteria": "48105"
         }
         default_filter.append(location_filter)
+    if distance not in ["", None, "None"]:
+        distance_filter = {
+            "fieldName": "animalLocationDistance",
+            "operation": "equals",
+            "criteria": distance
+        }
+        default_filter.append(distance_filter)
     log.info(f"FILTER: {default_filter}\nPAGE: {page}")
     log.debug("Attempting to gather API data")
     start = (int(page) - 1) * 20
@@ -171,6 +180,7 @@ def animals_page_filter(page=None, age=None, gender=None, location=None):
             age=age,
             gender=gender,
             location=location,
+            distance=distance,
             save_animal=save_animal,
             limits=[start, start+20],
         )
