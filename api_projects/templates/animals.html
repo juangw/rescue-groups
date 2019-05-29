@@ -98,12 +98,16 @@
             </select>
             <label style="text-indent: 40px">Location Filter:</label>
             {% if location %}
-                <input name="location" type="text" placeholder="{{ location }}">
+                <input name="location" type="text" value="{{ location }}">
             {% else %}
                 <input name="location" type="text" placeholder="48105">
             {% endif %}
             <label style="text-indent: 40px">Distance Radius(miles):</label>
-            <input name="distance" type="text" placeholder="0">
+            {% if distance %}
+                <input name="distance" type="text" placeholder="{{ distance }}">
+            {% else %}
+                <input name="distance" type="text" placeholder="0">
+            {% endif %}
             <input type="submit">
         </form>
         <table class="table table-dark">
@@ -147,15 +151,15 @@
             {% elif page|int >= 2 and gender and not age and not location %}
                 <a href="{{ url_for('animals_page_filter', page=page|int-1, gender=gender) }}" class="next-previous"> &laquo; Previous</a>
             {% elif page|int >= 2 and location and not age and not gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location) }}" class="next-previous"> &laquo; Previous</a>
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
             {% elif page|int >= 2 and age and gender and not location %}
                 <a href="{{ url_for('animals_page_filter', page=page|int-1, gender=gender, age=age) }}" class="next-previous"> &laquo; Previous</a>
             {% elif page|int >= 2 and age and location and not gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, age=age) }}" class="next-previous"> &laquo; Previous</a>
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, age=age, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
             {% elif page|int >= 2 and gender and location and not gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender) }}" class="next-previous"> &laquo; Previous</a>
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
             {% elif page|int >= 2 and age and location and gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender, age=age) }}" class="next-previous"> &laquo; Previous</a>
+                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender, age=age, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
             {% elif page|int >= 2 and not age and not location and not gender %}
                 <a href="{{ url_for('animals_page_filter', page=page|int-1) }}" class="next-previous"> &laquo; Previous</a>
             {% endif %}
@@ -164,15 +168,15 @@
             {% elif results.foundRows > limits[1] and gender and not age and not location%}
                 <a href="{{ url_for('animals_page_filter', page=page|int+1, gender=gender) }}" class="next-previous">Next &raquo;</a>
             {% elif results.foundRows > limits[1] and location and not age and not gender%}
-                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location) }}" class="next-previous">Next &raquo;</a>
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, distance=distance) }}" class="next-previous">Next &raquo;</a>
             {% elif results.foundRows > limits[1] and age and gender and not location%}
                 <a href="{{ url_for('animals_page_filter', page=page|int+1, gender=gender, age=age) }}" class="next-previous">Next &raquo;</a>
             {% elif results.foundRows > limits[1] and age and location and not gender%}
-                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, age=age) }}" class="next-previous">Next &raquo;</a>
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, age=age, distance=distance) }}" class="next-previous">Next &raquo;</a>
             {% elif results.foundRows > limits[1] and gender and location and not gender%}
-                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, gender=gender) }}" class="next-previous">Next &raquo;</a>
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, gender=gender, distance=distance) }}" class="next-previous">Next &raquo;</a>
             {% elif results.foundRows > limits[1] and age and location and gender%}
-                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, gender=gender, age=age) }}" class="next-previous">Next &raquo;</a>
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, location=location, gender=gender, age=age, distance=distance) }}" class="next-previous">Next &raquo;</a>
             {% elif results.foundRows > limits[1] and not age and not location and not gender%}
                 <a href="{{ url_for('animals_page_filter', page=page|int+1) }}" class="next-previous">Next &raquo;</a>
             {% endif %}
