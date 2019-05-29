@@ -33,11 +33,16 @@
             </p>
             {% if location %}
                 <p style="text-indent: 40px">Searching for cats in {{ location }}</p>
+                {% if distance %}
+                    <p style="text-indent: 40px">Searching for [Gender: {{ gender }}, Age: {{ age }}] cats in {{ location }} with radius of {{ distance }} miles</p>
+                {% else %}
+                    <p style="text-indent: 40px">Searching for [Gender: {{ gender }}, Age: {{ age }}] cats in {{ location }} with radius of 0 miles</p>
+                {% endif %}
             {% else %}
                 {% if distance %}
-                    <p style="text-indent: 40px">Searching for cats in 48105 with radius of {{ distance }} miles</p>
+                    <p style="text-indent: 40px">Searching for [Gender: {{ gender }}, Age: {{ age }}] cats in 48105 with radius of {{ distance }} miles</p>
                 {% else %}
-                    <p style="text-indent: 40px">Searching for cats in 48105 with radius of 0 miles</p>
+                    <p style="text-indent: 40px">Searching for [Gender: {{ gender }}, Age: {{ age }}] cats in 48105 with radius of 0 miles</p>
                 {% endif %}
             {% endif %}
         </div>
