@@ -87,6 +87,7 @@ def animals_saved():
         return render_template("error.html", error=e)
 
 
+@app.route("/animals/<page>", methods=["GET", "POST"])
 @app.route("/animals/<page>/distance-<distance>", methods=["GET", "POST"])
 @app.route("/animals/<page>/age-<age>/distance-<distance>", methods=["GET", "POST"])
 @app.route("/animals/<page>/gender-<gender>/distance-<distance>", methods=["GET", "POST"])
