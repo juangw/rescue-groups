@@ -87,19 +87,19 @@ def animals_saved():
         return render_template("error.html", error=e)
 
 
-@app.route("/animals/<page>", methods=["GET", "POST"])
-@app.route("/animals/<page>/age-<age>", methods=["GET", "POST"])
-@app.route("/animals/<page>/gender-<gender>", methods=["GET", "POST"])
-@app.route("/animals/<page>/loc-<location>", methods=["GET", "POST"])
+@app.route("/animals/<page>/distance-<distance>", methods=["GET", "POST"])
+@app.route("/animals/<page>/age-<age>/distance-<distance>", methods=["GET", "POST"])
+@app.route("/animals/<page>/gender-<gender>/distance-<distance>", methods=["GET", "POST"])
+@app.route("/animals/<page>/loc-<location>/distance-<distance>", methods=["GET", "POST"])
 @app.route(
-    "/animals/<page>/age-<age>/gender-<gender>", methods=["GET", "POST"]
+    "/animals/<page>/age-<age>/gender-<gender>/distance-<distance>", methods=["GET", "POST"]
 )
-@app.route("/animals/<page>/age-<age>/loc-<location>", methods=["GET", "POST"])
+@app.route("/animals/<page>/age-<age>/loc-<location>/distance-<distance>", methods=["GET", "POST"])
 @app.route(
-    "/animals/<page>/gender-<gender>/loc-<location>", methods=["GET", "POST"]
+    "/animals/<page>/gender-<gender>/loc-<location>/distance-<distance>", methods=["GET", "POST"]
 )
 @app.route(
-    "/animals/<page>/age-<age>/gender-<gender>/loc-<location>",
+    "/animals/<page>/age-<age>/gender-<gender>/loc-<location>/distance-<distance>",
     methods=["GET", "POST"],
 )
 def animals_page_filter(page=None, age=None, gender=None, location=None, distance=None):
