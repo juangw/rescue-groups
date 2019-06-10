@@ -7,22 +7,22 @@ html, body {
 }
 
 h2 {
-	  color: black;
-	  text-align: center;
+    color: black;
+    text-align: center;
 }
 
 p, li, td, th, label {
-	  color: white !important;
-	  margin: 0 !important;
+    color: white !important;
+    margin: 0 !important;
 }
 
 h2 {
-	  margin-top: 0 !important;
-	  margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 ul {
-	  margin-bottom: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 td a:link {
@@ -38,12 +38,12 @@ td a:hover {
 }
 
 table {
-	  margin-bottom: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 img.thumb {
-	  border-radius: 0.5em;
-	  border: 0.25em solid grey !important;
+    border-radius: 0.5em;
+    border: 0.25em solid grey !important;
 }
 
 .next-previous-btns {
@@ -65,10 +65,10 @@ a.next-previous:hover {
 }
 
 .cart {
-	  height: 3em;
-	  width: 3em;
-	  float: right;
-	  margin-right: 1em;
+    height: 3em;
+    width: 3em;
+    float: right;
+    margin-right: 1em;
 }
 
 .next-previous {
@@ -77,8 +77,8 @@ a.next-previous:hover {
 }
 
 .fab {
-	  font-size: 3em !important;
-	  float: right;
+	font-size: 3em !important;
+	float: right;
   	margin-right: 1em;
 }
 
@@ -94,13 +94,13 @@ a.next-previous:hover {
 }
 
 .btn.remove {
-	  background-color: red;
-	  margin: .5em !important;
+	background-color: red;
+	margin: .5em !important;
 }
 
 .btn.save {
-	  background-color: #1DB954;
-	  margin: .5em !important;
+    background-color: #1DB954;
+	margin: .5em !important;
 }
 
 .btn.save:hover, .btn.remove:hover {
@@ -108,8 +108,8 @@ a.next-previous:hover {
 }
 
 .btn.info {
-	  background-color: #00ccff;
-	  margin: .5em !important;
+    background-color: #00ccff;
+    margin: .5em !important;
 }
 
 .btn.info:hover {
@@ -117,12 +117,12 @@ a.next-previous:hover {
 }
 
 .header {
-	  background-color: #1DB954;
+	background-color: #1DB954;
     height: 7em;
 }
 
 .wrapper {
-	  min-height: 100%;
+    min-height: 100%;
     height: auto !important;
     position: relative;
 }

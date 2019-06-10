@@ -7,3 +7,4 @@ green==2.13.0
 psycopg2-binary==2.7.5
 gunicorn==19.5.0
 gevent==1.2.1
+python-dateutil==2.8.0

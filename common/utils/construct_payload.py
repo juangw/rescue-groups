@@ -24,7 +24,7 @@ def get_api_key(topic):
             "objectType": "animals",
             "objectAction": "publicSearch",
             "search": {
-                "resultSort": "animalID",
+                "resultSort": "animalUpdatedDate",
                 "resultOrder": "asc",
                 "calcFoundRows": "Yes",
                 "filters": [],
