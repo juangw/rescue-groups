@@ -25,7 +25,7 @@ def get_api_key(topic):
             "objectAction": "publicSearch",
             "search": {
                 "resultSort": "animalUpdatedDate",
-                "resultOrder": "asc",
+                "resultOrder": "desc",
                 "calcFoundRows": "Yes",
                 "filters": [],
                 "fields": []
