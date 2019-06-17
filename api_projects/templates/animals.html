@@ -25,16 +25,18 @@
     <header>
         <div class="header">
             <h2>Animal Rescue Group</h2>
-            <p style="text-indent: 40px">Results Found: {{ results.foundRows }}</p>
-            <p style="text-indent: 40px">Showing results from {{ limits[0] }}-{{ limits[1] }}
+            <p style="text-indent: 1em">Results Found: {{ results.foundRows }}</p>
+            <p style="text-indent: 1em">Showing results from {{ limits[0] }}-{{ limits[1] }}</p>
             <a href="{{ url_for('animals_saved') }}">
-                <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
+                <i class="fas fa-shopping-cart cart"></i>
             </a>
-            </p>
+            <a href="{{ url_for('home') }}">
+                <i class="fa fa-home home"></i>
+            </a>
             {% if distance %}
-                <p style="text-indent: 40px">Searching for [Gender: {{ gender }}, Age: {{ age }}] cats in {{ location }} with radius of {{ distance }} miles</p>
+                <p style="text-indent: 1em">Searching for [Gender: {{ gender }}, Age: {{ age }}] cats in {{ location }} with radius of {{ distance }} miles</p>
             {% else %}
-                <p style="text-indent: 40px">Searching for [Gender: {{ gender }}, Age: {{ age }}] cats in {{ location }} with radius of 0 miles</p>
+                <p style="text-indent: 1em">Searching for [Gender: {{ gender }}, Age: {{ age }}] cats in {{ location }} with radius of 0 miles</p>
             {% endif %}
         </div>
     </header>

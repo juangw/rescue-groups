@@ -55,11 +55,15 @@
     <header>
         <div class="header">
             <h2>Animal Rescue Group</h2>
-            <p style="text-indent: 40px">Showing results for {{ results.data[animal_id].animalName }}
+            <p style="text-indent: 1em">Single animal view</p>
             <a href="{{ url_for('animals_saved') }}">
-                <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
+                <i class="fas fa-shopping-cart cart"></i>
             </a>
-            </p>
+            <a href="{{ url_for('home') }}">
+                <i class="fa fa-home home"></i>
+            </a>
+            <p style="text-indent: 1em">Showing results for {{ results.data[animal_id].animalName }}</p>
+            
         </div>
     </header>
     <div class="wrapper">
