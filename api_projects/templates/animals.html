@@ -144,23 +144,7 @@
             </tbody>
         </table>
         <div class="next-previous-btns">
-            {% if page|int >= 2 and age and not gender and not location %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, age=age, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
-            {% elif page|int >= 2 and gender and not age and not location %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, gender=gender, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
-            {% elif page|int >= 2 and location and not age and not gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
-            {% elif page|int >= 2 and age and gender and not location %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, gender=gender, age=age, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
-            {% elif page|int >= 2 and age and location and not gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, age=age, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
-            {% elif page|int >= 2 and gender and location and not gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
-            {% elif page|int >= 2 and age and location and gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, location=location, gender=gender, age=age, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
-            {% elif page|int >= 2 and not age and not location and not gender %}
-                <a href="{{ url_for('animals_page_filter', page=page|int-1, distance=distance) }}" class="next-previous"> &laquo; Previous</a>
-            {% endif %}
+            <a href="javascript:history.back(1)" class="next-previous">&laquo; Previous</a> 
             {% if results.foundRows > limits[1] and age and not gender and not location %}
                 <a href="{{ url_for('animals_page_filter', page=page|int+1, age=age, distance=distance) }}" class="next-previous">Next &raquo;</a>
             {% elif results.foundRows > limits[1] and gender and not age and not location%}
