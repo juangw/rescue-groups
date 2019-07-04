@@ -65,8 +65,13 @@ a.next-previous:hover {
 }
 
 .cart {
-    height: 3em;
-    width: 3em;
+    font-size: 2em;
+    float: right;
+    margin-right: 1em;
+}
+
+.home {
+    font-size: 2em;
     float: right;
     margin-right: 1em;
 }
@@ -118,7 +123,7 @@ a.next-previous:hover {
 
 .header {
 	background-color: #1DB954;
-    height: 7em;
+    height: 8em;
 }
 
 .wrapper {

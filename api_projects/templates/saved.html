@@ -25,9 +25,13 @@
     <header>
         <div class="header">
             <h2>Saved Animals</h2>
-            <p style="text-indent: 40px">Animals Saved: {{ count }}</p>
+            <p style="text-indent: 1em">Viewing saved Animals</p>
+            <p style="text-indent: 1em">Animals Saved: {{ count }}</p>
             <a href="{{ url_for('animals_saved') }}">
-                 <img src="{{ url_for('static', filename='imgs/shopping.png') }}" class="cart" alt="Cart">
+                <i class="fas fa-shopping-cart cart"></i>
+            </a>
+            <a href="{{ url_for('home') }}">
+                <i class="fa fa-home home"></i>
             </a>
         </div>
     </header>
@@ -41,7 +45,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Gender</th>
                     <th scope="col">Age</th>
-                    <th scope="col">Zip Cod</th>
+                    <th scope="col">Zip Code</th>
                     <th scope="col">Description</th>
                     <th scope="col">Options</th>
                 </tr>
