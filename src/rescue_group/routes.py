@@ -62,7 +62,6 @@ def home(page=1):
     )
     if results is not None:
         result_dict = json.loads(results, object_pairs_hook=OrderedDict)
-        print(result_dict)
         if not result_dict.get("data", {}):
             error = "There were no results for your search"
             return render_template("error.html", error=error)
@@ -97,16 +96,17 @@ def animals_saved():
 
 
 @app.route("/animals/<page>", methods=["GET", "POST"])
-@app.route("/animals/<page>/distance-<distance>", methods=["GET", "POST"])
-@app.route("/animals/<page>/age-<age>/distance-<distance>", methods=["GET", "POST"])
-@app.route("/animals/<page>/gender-<gender>/distance-<distance>", methods=["GET", "POST"])
-@app.route("/animals/<page>/loc-<location>/distance-<distance>", methods=["GET", "POST"])
 @app.route(
-    "/animals/<page>/age-<age>/gender-<gender>/distance-<distance>", methods=["GET", "POST"]
+    "/animals/<page>/age-<age>/gender-<gender>", methods=["GET", "POST"]
+
 )
-@app.route("/animals/<page>/age-<age>/loc-<location>/distance-<distance>", methods=["GET", "POST"])
 @app.route(
-    "/animals/<page>/gender-<gender>/loc-<location>/distance-<distance>", methods=["GET", "POST"]
+    "/animals/<page>/age-<age>/gender-<gender>/loc-/distance-<distance>",
+    methods=["GET", "POST"],
+)
+@app.route(
+    "/animals/<page>/age-<age>/gender-<gender>/loc-<location>/distance-",
+    methods=["GET", "POST"],
 )
 @app.route(
     "/animals/<page>/age-<age>/gender-<gender>/loc-<location>/distance-<distance>",
@@ -126,7 +126,7 @@ def animals_page_filter(page=None, age=None, gender=None, location=None, distanc
     if age is None:
         age = request.form.get("age", None)
     if distance is None:
-        distance = request.form.get("distance", 0)
+        distance = request.form.get("distance", None)
     error = ""
     default_filter = [
         {
