@@ -150,7 +150,11 @@
         </table>
         <div class="next-previous-btns">
             <a href="javascript:history.back(1)" class="next-previous">&laquo; Previous</a> 
-            <a href="{{ url_for('animals_page_filter', page=page|int+1, gender=gender, age=age, location=location, distance=distance) }}" class="next-previous">Next &raquo;</a>
+            {% if not gender and not age and not location and not distance %}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1) }}" class="next-previous">Next &raquo;</a>
+            {% else %}
+                <a href="{{ url_for('animals_page_filter', page=page|int+1, gender=gender, age=age, location=location, distance=distance) }}" class="next-previous">Next &raquo;</a>
+            {% endif %}
             <br>
         </div>
     </div>
