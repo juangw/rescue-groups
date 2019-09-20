@@ -18,7 +18,7 @@ def get_api_key(topic):
         topic_api_key = topic_secret.get("api_key", "")
     else:
         topic_url = os.environ.get("url")
-        topic_api_key = os.environ.get("api_key", "")
+        topic_api_key = os.environ.get("{}_api_key".format(topic), "")
         topic_data = {
             "apikey": topic_api_key,
             "objectType": "animals",

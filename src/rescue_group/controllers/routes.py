@@ -30,11 +30,10 @@ default_fields = [
 @app.route("/")
 @app.route("/animals")
 @app.route("/animals/")
-def home(page=1):
+def animals_home(page=1):
     """
     This function just responds to the browser URL
     localhost:8090/
-
     :return:        the rendered template "home.html"
     """
     error = ""
@@ -81,7 +80,6 @@ def animals_saved():
     """
     This function just responds to the browser URL
     localhost:8090/
-
     :return:        the rendered template "home.html"
     """
     try:
@@ -98,7 +96,10 @@ def animals_saved():
 @app.route("/animals/<page>", methods=["GET", "POST"])
 @app.route(
     "/animals/<page>/age-<age>/gender-<gender>", methods=["GET", "POST"]
-
+)
+@app.route(
+    "/animals/<page>/age-<age>/gender-<gender>/loc-/distance-",
+    methods=["GET", "POST"],
 )
 @app.route(
     "/animals/<page>/age-<age>/gender-<gender>/loc-/distance-<distance>",
@@ -116,7 +117,6 @@ def animals_page_filter(page=None, age=None, gender=None, location=None, distanc
     """
     This function just responds to the browser URL
     localhost:8090/
-
     :return:        the rendered template "home.html"
     """
     if gender is None:
@@ -208,7 +208,6 @@ def animal(animal_id):
     """
     This function just responds to the browser URL
     localhost:8090/
-
     :return:        the rendered template "home.html"
     """
     animal_filter = [
@@ -241,7 +240,6 @@ def save_animals(animal_id):
     """
     This function just responds to the browser URL
     localhost:8090/
-
     :return:        the rendered template "home.html"
     """
     save_animal(animal_id)
@@ -252,7 +250,7 @@ def remove_animals(animal_id):
     """
     This function just responds to the browser URL
     localhost:8090/
-
     :return:        the rendered template "home.html"
     """
     removed = remove_animal(animal_id)
+
