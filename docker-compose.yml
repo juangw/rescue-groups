@@ -13,6 +13,8 @@ services:
       DATABASE_URL: "postgresql+psycopg2://admin:postgres@api_app_postgres:5432/api_data"
     volumes:
       - ./:/usr/src/app/
+    depends_on:
+      - "api_app_postgres"
     entrypoint:
       - "/bin/bash"
 
@@ -20,8 +22,6 @@ services:
     image: postgres:9.6
     ports:
       - "6432:5432"
-    links:
-      - api_app
     environment:
       LOG_LEVEL: INFO
       POSTGRES_PASSWORD: postgres
