@@ -2,11 +2,12 @@
 Repository for Python API Projects
 
 ## How to start application locally
-Run the script `docker_cli.py` with args:
+Use docker-compose commands to build, run, and exec into
 ```bash
-python3 docker_cli.py build
-python3 docker_cli.py start
-python3 docker_cli.py login
+docker-compose build
+docker-compose up -d
+docker-compose exec api_app bash
+docker-compose down
 ```
 
 Once inside the container run, and the website will be at the address `localhost:9080`:
