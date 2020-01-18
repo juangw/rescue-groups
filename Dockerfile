@@ -13,5 +13,5 @@ RUN python setup.py develop
 EXPOSE 8080
 
 # run the application
-ENTRYPOINT ["python3"]
-CMD ["-m", "api_projects"]
+ENTRYPOINT ["uwsgi"]
+CMD ["--ini uwsgi.ini"]

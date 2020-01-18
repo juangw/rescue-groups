@@ -11,6 +11,7 @@ STAGE = os.environ.get("STAGE", "local")
 from src.rescue_group.controllers.routes import *
 from src.alpha_vantage.controllers.routes import *
 
+
 def run():
     # app.add_api("my_api.yaml")
     app.run(debug=False, host="0.0.0.0", port=PORT)

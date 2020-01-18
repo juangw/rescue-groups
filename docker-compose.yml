@@ -17,6 +17,7 @@ services:
       - "api_app_postgres"
     entrypoint:
       - "/bin/bash"
+    command: ["uwsgi --ini uwsgi.ini"]
 
   api_app_postgres:
     image: postgres:9.6
