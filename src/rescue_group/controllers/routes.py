@@ -28,7 +28,6 @@ default_fields = [
 
 
 @app.route("/")
-@app.route("/animals")
 @app.route("/animals/")
 def animals_home(page=1):
     """
@@ -94,39 +93,17 @@ def animals_saved():
 
 
 @app.route("/animals/<page>", methods=["GET", "POST"])
-@app.route(
-    "/animals/<page>/age-<age>/gender-<gender>", methods=["GET", "POST"]
-)
-@app.route(
-    "/animals/<page>/age-<age>/gender-<gender>/loc-/distance-",
-    methods=["GET", "POST"],
-)
-@app.route(
-    "/animals/<page>/age-<age>/gender-<gender>/loc-/distance-<distance>",
-    methods=["GET", "POST"],
-)
-@app.route(
-    "/animals/<page>/age-<age>/gender-<gender>/loc-<location>/distance-",
-    methods=["GET", "POST"],
-)
-@app.route(
-    "/animals/<page>/age-<age>/gender-<gender>/loc-<location>/distance-<distance>",
-    methods=["GET", "POST"],
-)
-def animals_page_filter(page=None, age=None, gender=None, location=None, distance=None):
+def animals_page_filter(page):
     """
     This function just responds to the browser URL
     localhost:8090/
     :return:        the rendered template "home.html"
     """
-    if gender is None:
-        gender = request.form.get("gender", None)
-    if location is None:
-        location = request.form.get("location", None)
-    if age is None:
-        age = request.form.get("age", None)
-    if distance is None:
-        distance = request.form.get("distance", None)
+    gender = request.args.get("gender", request.form.get("gender"))
+    location = request.args.get("location", request.form.get("location"))
+    age = request.args.get("age", request.form.get("age"))
+    distance = request.args.get("distance", request.form.get("distance"))
+
     error = ""
     default_filter = [
         {
@@ -140,8 +117,6 @@ def animals_page_filter(page=None, age=None, gender=None, location=None, distanc
             "criteria": HALF_YEAR_FILTER
         }
     ]
-    if page is None:
-        page = 1
     if age not in [None, "None"]:
         age_filter = {
             "fieldName": "animalGeneralAge",
@@ -156,7 +131,7 @@ def animals_page_filter(page=None, age=None, gender=None, location=None, distanc
             "criteria": gender
         }
         default_filter.append(gender_filter)
-    if location not in ["", None, "None"]:
+    if location not in ["", None]:
         location_filter = {
             "fieldName": "animalLocation",
             "operation": "equals",
@@ -170,7 +145,7 @@ def animals_page_filter(page=None, age=None, gender=None, location=None, distanc
             "criteria": "48105"
         }
         default_filter.append(location_filter)
-    if distance not in ["", None, "None"]:
+    if distance not in ["", None]:
         distance_filter = {
             "fieldName": "animalLocationDistance",
             "operation": "equals",

@@ -48,35 +48,35 @@
     <div class="wrapper">
         <div class="wrapper-bg"></div>
         <br>
-        <form action="{{ url_for('animals_page_filter', page=1|int) }}" method="POST">
+	<form action="{{ url_for('animals_page_filter', **{'page': 1|int}) }}" method="POST">
             <label style="text-indent: 40px">Age Filter:</label>
             <select name="age">
                  {% if age == "Baby" %}
-                    <option value="None">None</option>
+                    <option>None</option>
                     <option value="Baby" selected>Baby</option>
                     <option value="Young">Young</option>
                     <option value="Adult">Adult</option>
                     <option value="Senior">Senior</option>
                 {% elif age == "Young" %}
-                    <option value="None">None</option>
+                    <option>None</option>
                     <option value="Baby">Baby</option>
                     <option value="Young" selected>Young</option>
                     <option value="Adult">Adult</option>
                     <option value="Senior">Senior</option>
                 {% elif age == "Adult" %}
-                    <option value="None">None</option>
+                    <option>None</option>
                     <option value="Baby">Baby</option>
                     <option value="Young">Young</option>
                     <option value="Adult" selected>Adult</option>
                     <option value="Senior">Senior</option>
                 {% elif age == "Senior" %}
-                    <option value="None">None</option>
+                    <option>None</option>
                     <option value="Baby">Baby</option>
                     <option value="Young">Young</option>
                     <option value="Adult">Adult</option>
                     <option value="Senior" selected>Senior</option>
                 {% else %}
-                    <option value="None" selected>None</option>
+                    <option selected>None</option>
                     <option value="Baby">Baby</option>
                     <option value="Young">Young</option>
                     <option value="Adult">Adult</option>
@@ -86,15 +86,15 @@
             <label style="text-indent: 40px">Gender Filter:</label>
             <select name="gender">
                 {% if gender == "Male" %}
-                    <option value="None">None</option>
+                    <option>None</option>
                     <option value="Male" selected>Male</option>
                     <option value="Female">Female</option>
                 {% elif gender == "Female" %}
-                    <option value="None">None</option>
+                    <option>None</option>
                     <option value="Male">Male</option>
                     <option value="Female" selected>Female</option>
                 {% else %}
-                    <option value="None" selected>None</option>
+                    <option selected>None</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 {% endif %}
@@ -151,9 +151,9 @@
         <div class="next-previous-btns">
             <a href="javascript:history.back(1)" class="next-previous">&laquo; Previous</a> 
             {% if not gender and not age and not location and not distance %}
-                <a href="{{ url_for('animals_page_filter', page=page|int+1) }}" class="next-previous">Next &raquo;</a>
+	    <a href="{{ url_for('animals_page_filter', **{'page': page|int+1}) }}" class="next-previous">Next &raquo;</a>
             {% else %}
-                <a href="{{ url_for('animals_page_filter', page=page|int+1, gender=gender, age=age, location=location, distance=distance) }}" class="next-previous">Next &raquo;</a>
+	    <a href="{{ url_for('animals_page_filter', **{'page': page|int+1, 'gender': gender, 'age': age, 'location': location, 'distance': distance}) }}" class="next-previous">Next &raquo;</a>
             {% endif %}
             <br>
         </div>
