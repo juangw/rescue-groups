@@ -113,6 +113,9 @@
             {% endif %}
             <input type="submit">
         </form>
+	{% if len(results.data.items()) == 0 %}
+	    <p>There are no cats for your search<p>
+	{% else %}
         <table class="table table-dark">
             <thead>
                 <tr>
@@ -148,13 +151,16 @@
             {% endfor %}
             </tbody>
         </table>
+	{% endif %}
         <div class="next-previous-btns">
-            <a href="javascript:history.back(1)" class="next-previous">&laquo; Previous</a> 
-            {% if not gender and not age and not location and not distance %}
-	    <a href="{{ url_for('animals_page_filter', **{'page': page|int+1}) }}" class="next-previous">Next &raquo;</a>
-            {% else %}
-	    <a href="{{ url_for('animals_page_filter', **{'page': page|int+1, 'gender': gender, 'age': age, 'location': location, 'distance': distance}) }}" class="next-previous">Next &raquo;</a>
-            {% endif %}
+            <a href="javascript:history.back(1)" class="next-previous">&laquo; Previous</a>
+	    {% if len(results.data.items()) != 0 %}
+		{% if not gender and not age and not location and not distance %}
+		<a href="{{ url_for('animals_page_filter', **{'page': page|int+1}) }}" class="next-previous">Next &raquo;</a>
+		{% else %}
+		<a href="{{ url_for('animals_page_filter', **{'page': page|int+1, 'gender': gender, 'age': age, 'location': location, 'distance': distance}) }}" class="next-previous">Next &raquo;</a>
+		{% endif %}
+	    {% endif %}
             <br>
         </div>
     </div>
