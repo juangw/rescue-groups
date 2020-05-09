@@ -160,9 +160,8 @@ def animals_page_filter(page):
     )
     if results is not None:
         result_dict = json.loads(results, object_pairs_hook=OrderedDict)
-        if not result_dict.get("data", {}):
-            error = "There were no results for your search"
-            return render_template("error.html", error=error)
+        if result_dict.get("data") is None:
+            result_dict["data"] = {}
         return render_template(
             "animals.html",
             results=result_dict,
