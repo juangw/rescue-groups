@@ -113,7 +113,7 @@
             {% endif %}
             <input type="submit">
         </form>
-	{% if len(results.data.items()) == 0 %}
+	{% if len(results.data) == 0 %}
 	    <p>There are no cats for your search<p>
 	{% else %}
         <table class="table table-dark">
