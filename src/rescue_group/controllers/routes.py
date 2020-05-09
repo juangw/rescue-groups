@@ -145,7 +145,7 @@ def animals_page_filter(page):
             "criteria": "48105"
         }
         default_filter.append(location_filter)
-    if distance not in ["", None, 0]:
+    if distance not in ["", "0", None]:
         distance_filter = {
             "fieldName": "animalLocationDistance",
             "operation": "equals",
