@@ -154,7 +154,7 @@
 	{% endif %}
         <div class="next-previous-btns">
             <a href="javascript:history.back(1)" class="next-previous">&laquo; Previous</a>
-	    {% if len(results.data.items()) != 0 %}
+	    {% if results.data.items|length != 0 %}
 		{% if not gender and not age and not location and not distance %}
 		<a href="{{ url_for('animals_page_filter', **{'page': page|int+1}) }}" class="next-previous">Next &raquo;</a>
 		{% else %}
