@@ -1,6 +1,6 @@
-from src.rescue_group.utils.construct_payload import get_api_key
-from src.rescue_group.utils.all_fields import SAVED_FIELDS
-from api_projects.log import log
+from rescue_groups.utils.construct_payload import get_api_key
+from rescue_groups.utils.all_fields import SAVED_FIELDS
+from rescue_groups.utils.logger import log
 
 import requests
 

@@ -8,8 +8,7 @@ app = connexion.FlaskApp(__name__, specification_dir="openapi/")
 PORT = int(os.environ.get("PORT", 8080))
 STAGE = os.environ.get("STAGE", "local")
 
-from src.rescue_group.controllers.routes import *
-from src.alpha_vantage.controllers.routes import *
+from rescue_groups.controllers.routes import *
 
 
 def run():

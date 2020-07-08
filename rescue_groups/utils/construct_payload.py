@@ -1,4 +1,4 @@
-from common.utils.get_secrets import get_secret
+from rescue_groups.utils.get_secrets import get_secret
 from collections import namedtuple
 
 import json

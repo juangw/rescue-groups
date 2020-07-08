@@ -1,12 +1,12 @@
-from src.rescue_group.utils.call_rescue_group import api_post_req
-from src.rescue_group.models.parser import strip_tags
-from src.rescue_group.utils.all_fields import ALL_FIELDS
-from src.rescue_group.utils.db_query import (
+from rescue_groups.utils.call_rescue_group import api_post_req
+from rescue_groups.models.parser import strip_tags
+from rescue_groups.utils.all_fields import ALL_FIELDS
+from rescue_groups.utils.queries import (
     save_animal, remove_animal, list_saved_animals
 )
 
-from api_projects.app import app
-from api_projects.log import log
+from rescue_groups.app import app
+from rescue_groups.utils.logger import log
 from flask import render_template, request
 from datetime import datetime
 from dateutil.relativedelta import relativedelta

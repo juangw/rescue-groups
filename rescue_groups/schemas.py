@@ -7,7 +7,7 @@ from sqlalchemy import (
     Integer,
     func,
 )
-from api_projects.log import log
+from rescue_groups.utils.logger import log
 
 import sqlalchemy
 import os

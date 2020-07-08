@@ -1,8 +1,8 @@
-from api_projects.schemas import session, Animals
-from src.rescue_group.models.parser import strip_tags
-from src.rescue_group.utils.call_rescue_group import animal_by_id_req
-from src.rescue_group.utils.all_fields import SAVED_FIELDS, FIELD_MAPPING
-from api_projects.log import log
+from rescue_groups.schemas import session, Animals
+from rescue_groups.models.parser import strip_tags
+from rescue_groups.utils.call_rescue_group import animal_by_id_req
+from rescue_groups.utils.all_fields import SAVED_FIELDS, FIELD_MAPPING
+from rescue_groups.utils.logger import log
 
 import json
 

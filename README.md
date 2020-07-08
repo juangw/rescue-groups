@@ -6,13 +6,13 @@ Use docker-compose commands to build, run, and exec into
 ```bash
 docker-compose build
 docker-compose up -d
-docker-compose exec api_app bash
+docker-compose exec rescue-groups-app bash
 docker-compose down
 ```
 
 Once inside the container run, and the website will be at the address `localhost:9080`:
 ```bash
-python3 -m api_projects
+python3 -m rescue_groups
 ```
 
 ## How to deploy project
