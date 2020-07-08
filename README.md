@@ -16,7 +16,7 @@ python3 -m rescue_groups
 ```
 
 ## Setup local secrets
-Create a `secrets.json` file at the top level of the repository
+Create a `secrets.json` file at the top level of the repository, so we can call the rescue groups API
 ```json
 {
     "rescue_group": {
