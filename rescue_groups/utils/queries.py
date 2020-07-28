@@ -3,6 +3,7 @@ from rescue_groups.utils.call_rescue_group import animal_by_id_req
 from rescue_groups.utils.logger import log
 
 from typing import List, Any, Mapping
+import json
 
 
 def save_animal(animal_id: int):
@@ -12,14 +13,14 @@ def save_animal(animal_id: int):
         :param animal_id: int of unique id for animal
     """
     log.info(f"Saving ID: {animal_id}")
-    animals = animal_by_id_req("rescue_group", animal_id)
-    for id, data in animals:
-        animal_id = id
+    animals = json.loads(animal_by_id_req("rescue_group", animal_id))["data"]
+    for data in animals.values():
         animal_data = data
         break
 
-    animal: Animals = Animals.from_dict(animal_id, animal_data)
-    session.add(animal)
+    animal = Animals()
+    animals = animal.from_dict(animal_data)
+    session.add(animals)
     try:
         session.commit()
     except Exception:

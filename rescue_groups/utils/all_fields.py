@@ -267,6 +267,7 @@ ALL_FIELDS = [
 ]
 
 SAVED_FIELDS = [
+    "animalID",
     "animalName",
     "animalSex",
     "animalGeneralAge",

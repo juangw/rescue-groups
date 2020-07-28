@@ -5,14 +5,13 @@ from rescue_groups.utils.logger import log
 from typing import Iterator, Dict, Any
 
 import requests
-import json
 
 
 def api_post_req(
     topic: str,
     start: int,
-    filters: Iterator = [],
-    fields: Iterator = [],
+    filters: Iterator[str] = [],
+    fields: Iterator[str] = [],
     display_all: bool = False,
 ) -> Dict[str, Any]:
     """Sends get request to the given api url"""
@@ -30,9 +29,9 @@ def api_post_req(
     api_key = api_info.api_key
     headers = {"x-api-key": api_key}
 
-    res = requests.post(url=api_url, headers=headers, json=api_data, timeout=10,)
+    res = requests.post(url=api_url, headers=headers, json=api_data, timeout=10)
     if res.status_code == 200:
-        return json.loads(res.text)["data"]
+        return res.text
     else:
         log.error(f"Request failed with response: {res.status_code}")
 
@@ -51,8 +50,8 @@ def animal_by_id_req(topic: str, animal_id: int) -> Dict[str, Any]:
     api_key = api_info.api_key
     headers = {"x-api-key": api_key}
 
-    res = requests.post(url=api_url, headers=headers, json=api_data, timeout=10,)
+    res = requests.post(url=api_url, headers=headers, json=api_data, timeout=10)
     if res.status_code == 200:
-        return json.loads(res.text)["data"]
+        return res.text
     else:
         log.error(f"Request failed with response: {res.status_code}")
