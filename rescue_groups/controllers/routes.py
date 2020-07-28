@@ -3,7 +3,7 @@ from rescue_groups.models.parser import strip_tags
 from rescue_groups.utils.all_fields import ALL_FIELDS
 from rescue_groups.utils.queries import save_animal, remove_animal, list_saved_animals
 
-from rescue_groups.app import app
+from flask import current_app as app
 from rescue_groups.utils.logger import log
 from flask import render_template, request
 from datetime import datetime

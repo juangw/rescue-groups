@@ -10,6 +10,7 @@ services:
       - "9080:8080"
     environment:
       STAGE: "local"
+      PORT: "8080"
       DATABASE_URL: "postgresql+psycopg2://admin:postgres@postgres:5432/rescue_groups"
     volumes:
       - ./:/usr/src/app/
