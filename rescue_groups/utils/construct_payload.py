@@ -28,7 +28,7 @@ def get_api_key(topic):
                 "resultOrder": "desc",
                 "calcFoundRows": "Yes",
                 "filters": [],
-                "fields": []
-            }
+                "fields": [],
+            },
         }
     return REQUEST(topic_url, topic_data, topic_api_key)

@@ -1,5 +1,3 @@
-from flask import render_template
-
 import connexion
 import os
 
@@ -8,7 +6,7 @@ app = connexion.FlaskApp(__name__, specification_dir="openapi/")
 PORT = int(os.environ.get("PORT", 8080))
 STAGE = os.environ.get("STAGE", "local")
 
-from rescue_groups.controllers.routes import *
+from rescue_groups.controllers.routes import *  # noqa: E402, F403, F401
 
 
 def run():

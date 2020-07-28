@@ -23,5 +23,5 @@ setup(
     entry_points={},
     long_description="""\
     Service for managing and executing extract workflows.
-    """
+    """,
 )

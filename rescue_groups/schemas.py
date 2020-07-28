@@ -7,7 +7,11 @@ from sqlalchemy import (
     Integer,
     func,
 )
+from rescue_groups.models.parser import strip_tags
 from rescue_groups.utils.logger import log
+from rescue_groups.utils.all_fields import SAVED_FIELDS
+
+from typing import Mapping, Any
 
 import sqlalchemy
 import os
@@ -42,6 +46,30 @@ class Animals(Base):
 
     def to_dict(self):
         return self.__dict__
+
+    def from_dict(self, animal_id: int, animal_data: Mapping[str, Any]) -> 'Animals':
+        animal_dict = {"id": animal_id}
+        for field in SAVED_FIELDS:
+            field_data = animal_data.get(animal_id).get(field)
+            db_field = Animals.mappings.get(field)
+            if db_field == "description":
+                animal_dict[db_field] = strip_tags(field_data)
+            else:
+                animal_dict[db_field] = field_data
+        return Animals(**animal_dict)
+
+    @property
+    def mappings(self) -> Mapping[str, Any]:
+        return {
+            "locationPostalcode": "location",
+            "animalEyeColor": "eye_color",
+            "animalColor": "color",
+            "animalName": "name",
+            "animalDescription": "description",
+            "animalGeneralAge": "age",
+            "animalSex": "sex",
+            "animalThumbnailUrl": "thumbnail",
+        }
 
 
 Base.metadata.create_all(engine)

@@ -2,10 +2,19 @@ from rescue_groups.utils.construct_payload import get_api_key
 from rescue_groups.utils.all_fields import SAVED_FIELDS
 from rescue_groups.utils.logger import log
 
+from typing import Iterator, Dict, Any
+
 import requests
+import json
 
 
-def api_post_req(topic, start, filters=[], fields=[], display_all=False):
+def api_post_req(
+    topic: str,
+    start: int,
+    filters: Iterator = [],
+    fields: Iterator = [],
+    display_all: bool = False,
+) -> Dict[str, Any]:
     """Sends get request to the given api url"""
     api_info = get_api_key(topic)
     api_info.data["search"]["resultStart"] = start
@@ -21,29 +30,19 @@ def api_post_req(topic, start, filters=[], fields=[], display_all=False):
     api_key = api_info.api_key
     headers = {"x-api-key": api_key}
 
-    try:
-        res = requests.post(
-            url=api_url,
-            headers=headers,
-            json=api_data,
-            timeout=10,
-        )
-        if res.status_code == 200:
-            return res.text
-        else:
-            log.error(f"Request failed with response: {res.status_code}")
-    except Exception as e:
-        log.error(f"API call failed with text: {e}")
+    res = requests.post(url=api_url, headers=headers, json=api_data, timeout=10,)
+    if res.status_code == 200:
+        return json.loads(res.text)["data"]
+    else:
+        log.error(f"Request failed with response: {res.status_code}")
 
 
-def animal_by_id_req(topic, animal_id):
+def animal_by_id_req(topic: str, animal_id: int) -> Dict[str, Any]:
     """Sends get request to the given api url"""
     api_info = get_api_key(topic)
-    id_filter = [{
-        "fieldName": "animalID",
-        "operation": "equals",
-        "criteria": animal_id
-    }]
+    id_filter = [
+        {"fieldName": "animalID", "operation": "equals", "criteria": animal_id}
+    ]
     api_info.data["search"]["filters"].extend(id_filter)
     api_info.data["search"]["fields"].extend(SAVED_FIELDS)
 
@@ -52,16 +51,8 @@ def animal_by_id_req(topic, animal_id):
     api_key = api_info.api_key
     headers = {"x-api-key": api_key}
 
-    try:
-        res = requests.post(
-            url=api_url,
-            headers=headers,
-            json=api_data,
-            timeout=10,
-        )
-        if res.status_code == 200:
-            return res.text
-        else:
-            log.error(f"Request failed with response: {res.status_code}")
-    except Exception as e:
-        log.error(f"API call failed with text: {e}")
+    res = requests.post(url=api_url, headers=headers, json=api_data, timeout=10,)
+    if res.status_code == 200:
+        return json.loads(res.text)["data"]
+    else:
+        log.error(f"Request failed with response: {res.status_code}")

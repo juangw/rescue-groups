@@ -1,9 +1,7 @@
 from rescue_groups.utils.call_rescue_group import api_post_req
 from rescue_groups.models.parser import strip_tags
 from rescue_groups.utils.all_fields import ALL_FIELDS
-from rescue_groups.utils.queries import (
-    save_animal, remove_animal, list_saved_animals
-)
+from rescue_groups.utils.queries import save_animal, remove_animal, list_saved_animals
 
 from rescue_groups.app import app
 from rescue_groups.utils.logger import log
@@ -37,27 +35,17 @@ def animals_home(page=1):
     """
     error = ""
     default_filter = [
-        {
-            "fieldName": "animalSpecies",
-            "operation": "equals",
-            "criteria": "cat"
-        },
-        {
-            "fieldName": "animalLocation",
-            "operation": "equals",
-            "criteria": "48105"
-        },
+        {"fieldName": "animalSpecies", "operation": "equals", "criteria": "cat"},
+        {"fieldName": "animalLocation", "operation": "equals", "criteria": "48105"},
         {
             "fieldName": "animalUpdatedDate",
             "operation": "greaterthan",
-            "criteria": HALF_YEAR_FILTER
-        }
+            "criteria": HALF_YEAR_FILTER,
+        },
     ]
     log.debug("Attempting to gather API data")
     start = (int(page) - 1) * 20
-    results = api_post_req(
-        "rescue_group", start, default_filter, default_fields
-    )
+    results = api_post_req("rescue_group", start, default_filter, default_fields)
     if results is not None:
         result_dict = json.loads(results, object_pairs_hook=OrderedDict)
         return render_template(
@@ -65,7 +53,7 @@ def animals_home(page=1):
             results=result_dict,
             page=page,
             save_animal=save_animal,
-            limits=[start, start+20],
+            limits=[start, start + 20],
         )
     else:
         return render_template("error.html", error=error)
@@ -81,9 +69,7 @@ def animals_saved():
     try:
         saved_animals = list_saved_animals()
         return render_template(
-            "saved.html",
-            results=saved_animals,
-            count=len(saved_animals),
+            "saved.html", results=saved_animals, count=len(saved_animals),
         )
     except Exception as e:
         return render_template("error.html", error=e)
@@ -103,58 +89,52 @@ def animals_page_filter(page):
 
     error = ""
     default_filter = [
-        {
-            "fieldName": "animalSpecies",
-            "operation": "equals",
-            "criteria": "cat"
-        },
+        {"fieldName": "animalSpecies", "operation": "equals", "criteria": "cat"},
         {
             "fieldName": "animalUpdatedDate",
             "operation": "greaterthan",
-            "criteria": HALF_YEAR_FILTER
-        }
+            "criteria": HALF_YEAR_FILTER,
+        },
     ]
     if age not in [None, "None"]:
         age_filter = {
             "fieldName": "animalGeneralAge",
             "operation": "equals",
-            "criteria": age
+            "criteria": age,
         }
         default_filter.append(age_filter)
     if gender not in [None, "None"]:
         gender_filter = {
             "fieldName": "animalSex",
             "operation": "equals",
-            "criteria": gender
+            "criteria": gender,
         }
         default_filter.append(gender_filter)
     if location not in ["", None]:
         location_filter = {
             "fieldName": "animalLocation",
             "operation": "equals",
-            "criteria": location
+            "criteria": location,
         }
         default_filter.append(location_filter)
     else:
         location_filter = {
             "fieldName": "animalLocation",
             "operation": "equals",
-            "criteria": "48105"
+            "criteria": "48105",
         }
         default_filter.append(location_filter)
     if distance not in ["", "0", None]:
         distance_filter = {
             "fieldName": "animalLocationDistance",
             "operation": "equals",
-            "criteria": distance
+            "criteria": distance,
         }
         default_filter.append(distance_filter)
     log.info(f"FILTER: {default_filter}\nPAGE: {page}")
     log.debug("Attempting to gather API data")
     start = (int(page) - 1) * 20
-    results = api_post_req(
-        "rescue_group", start, default_filter, default_fields, True
-    )
+    results = api_post_req("rescue_group", start, default_filter, default_fields, True)
     if results is not None:
         result_dict = json.loads(results, object_pairs_hook=OrderedDict)
         return render_template(
@@ -166,7 +146,7 @@ def animals_page_filter(page):
             location=location,
             distance=distance,
             save_animal=save_animal,
-            limits=[start, start+20],
+            limits=[start, start + 20],
         )
     else:
         return render_template("error.html", error=error)
@@ -180,17 +160,11 @@ def animal(animal_id):
     :return:        the rendered template "home.html"
     """
     animal_filter = [
-        {
-            "fieldName": "animalID",
-            "operation": "equals",
-            "criteria": animal_id
-        }
+        {"fieldName": "animalID", "operation": "equals", "criteria": animal_id}
     ]
     default_fields = ALL_FIELDS
     log.debug("Attempting to gather API data")
-    results = api_post_req(
-        "rescue_group", 0, animal_filter, default_fields
-    )
+    results = api_post_req("rescue_group", 0, animal_filter, default_fields)
     if results is not None:
         result_dict = json.loads(results, object_pairs_hook=OrderedDict)
         return render_template(
@@ -221,5 +195,4 @@ def remove_animals(animal_id):
     localhost:8090/
     :return:        the rendered template "home.html"
     """
-    removed = remove_animal(animal_id)
-
+    remove_animal(animal_id)

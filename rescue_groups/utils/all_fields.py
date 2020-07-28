@@ -263,7 +263,7 @@ ALL_FIELDS = [
     "transferredtoTitle",
     "transferredtoPostalcode",
     "animalGroups",
-    "animalExportAccounts"
+    "animalExportAccounts",
 ]
 
 SAVED_FIELDS = [
@@ -274,16 +274,5 @@ SAVED_FIELDS = [
     "locationPostalcode",
     "animalColor",
     "animalEyeColor",
-    "animalThumbnailUrl"
+    "animalThumbnailUrl",
 ]
-
-FIELD_MAPPING = {
-    "locationPostalcode": "location",
-    "animalEyeColor": "eye_color",
-    "animalColor": "color",
-    "animalName": "name",
-    "animalDescription": "description",
-    "animalGeneralAge": "age",
-    "animalSex": "sex",
-    "animalThumbnailUrl": "thumbnail"
-}
