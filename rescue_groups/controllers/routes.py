@@ -5,7 +5,8 @@ from rescue_groups.utils.queries import save_animal, remove_animal, list_saved_a
 
 from flask import current_app as app
 from rescue_groups.utils.logger import log
-from flask import render_template, request
+from flask import render_template, request, redirect
+from flask_login import current_user, login_required
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from collections import OrderedDict
@@ -26,13 +27,16 @@ default_fields = [
 
 
 @app.route("/")
-@app.route("/animals/")
+def index():
+    if current_user.is_authenticated:
+        return redirect("/animals")
+    else:
+        return redirect("/login")
+
+
+@app.route("/animals")
+@login_required
 def animals_home(page=1):
-    """
-    This function just responds to the browser URL
-    localhost:8090/
-    :return:        the rendered template "home.html"
-    """
     error = ""
     default_filter = [
         {"fieldName": "animalSpecies", "operation": "equals", "criteria": "cat"},
@@ -60,12 +64,8 @@ def animals_home(page=1):
 
 
 @app.route("/saved-animals")
+@login_required
 def animals_saved():
-    """
-    This function just responds to the browser URL
-    localhost:8090/
-    :return:        the rendered template "home.html"
-    """
     try:
         saved_animals = list_saved_animals()
         return render_template(
@@ -76,12 +76,8 @@ def animals_saved():
 
 
 @app.route("/animals/<page>", methods=["GET", "POST"])
+@login_required
 def animals_page_filter(page):
-    """
-    This function just responds to the browser URL
-    localhost:8090/
-    :return:        the rendered template "home.html"
-    """
     gender = request.args.get("gender", request.form.get("gender"))
     location = request.args.get("location", request.form.get("location"))
     age = request.args.get("age", request.form.get("age"))
@@ -153,12 +149,8 @@ def animals_page_filter(page):
 
 
 @app.route("/animal/<animal_id>")
+@login_required
 def animal(animal_id):
-    """
-    This function just responds to the browser URL
-    localhost:8090/
-    :return:        the rendered template "home.html"
-    """
     animal_filter = [
         {"fieldName": "animalID", "operation": "equals", "criteria": animal_id}
     ]
@@ -178,21 +170,15 @@ def animal(animal_id):
         return render_template("error.html")
 
 
-@app.route("/save-animal/<animal_id>")
+@app.route("/save-animal/<animal_id>", methods=["GET"])
+@login_required
 def save_animals(animal_id):
-    """
-    This function just responds to the browser URL
-    localhost:8090/
-    :return:        the rendered template "home.html"
-    """
     save_animal(animal_id)
+    return "ok", 200
 
 
-@app.route("/remove-animal/<animal_id>", methods=["GET", "POST"])
+@app.route("/remove-animal/<animal_id>")
+@login_required
 def remove_animals(animal_id):
-    """
-    This function just responds to the browser URL
-    localhost:8090/
-    :return:        the rendered template "home.html"
-    """
     remove_animal(animal_id)
+    return "ok", 200

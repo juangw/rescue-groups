@@ -265,15 +265,3 @@ ALL_FIELDS = [
     "animalGroups",
     "animalExportAccounts",
 ]
-
-SAVED_FIELDS = [
-    "animalID",
-    "animalName",
-    "animalSex",
-    "animalGeneralAge",
-    "animalDescription",
-    "locationPostalcode",
-    "animalColor",
-    "animalEyeColor",
-    "animalThumbnailUrl",
-]
