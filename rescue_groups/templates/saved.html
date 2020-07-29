@@ -15,6 +15,7 @@
                 $.getJSON('/remove-animal/' + animal_id,
                     function(animal_id) {
                 });
+                window.location.replace("/saved-animals");
                 return false;
             });
         });

@@ -1,5 +1,5 @@
-# python-api-projects
-Repository for Python API Projects
+# rescue-groups
+Repository for Python Website for the rescue-groups API
 
 ## How to start application locally
 Use docker-compose commands to build, run, and exec into
@@ -12,7 +12,7 @@ docker-compose down
 
 Once inside the container run, and the website will be at the address `localhost:9080`:
 ```bash
-python3 -m rescue_groups
+GOOGLE_CLIENT_ID=<ID> GOOGLE_CLIENT_SECRET=<SECRET> uwsgi uwsgi.ini
 ```
 
 ## Setup local secrets
