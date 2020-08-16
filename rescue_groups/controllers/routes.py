@@ -40,6 +40,7 @@ def animals_home(page=1):
     default_filter = [
         {"fieldName": "animalSpecies", "operation": "equals", "criteria": "cat"},
         {"fieldName": "animalLocation", "operation": "equals", "criteria": "48105"},
+        {"fieldName": "animalAdoptedDate", "operation": "blank"},
         {
             "fieldName": "animalUpdatedDate",
             "operation": "greaterthan",
@@ -55,6 +56,7 @@ def animals_home(page=1):
             "animals.html",
             results=result_dict,
             page=page,
+            adopted=None,
             save_animal=save_animal,
             limits=[start, start + 20],
         )
@@ -81,6 +83,7 @@ def animals_page_filter(page):
     location = request.args.get("location", request.form.get("location"))
     age = request.args.get("age", request.form.get("age"))
     distance = request.args.get("distance", request.form.get("distance"))
+    adopted = request.args.get("adopted", request.form.get("adopted"))
 
     error = ""
     default_filter = [
@@ -105,6 +108,9 @@ def animals_page_filter(page):
             "criteria": gender,
         }
         default_filter.append(gender_filter)
+    if adopted is None:
+        adopted_filter = {"fieldName": "animalAdoptedDate", "operation": "blank"}
+        default_filter.append(adopted_filter)
     if location not in ["", None]:
         location_filter = {
             "fieldName": "animalLocation",
@@ -138,6 +144,7 @@ def animals_page_filter(page):
             page=page,
             age=age,
             gender=gender,
+            adopted=adopted,
             location=location,
             distance=distance,
             save_animal=save_animal,
