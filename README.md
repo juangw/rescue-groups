@@ -25,7 +25,7 @@ Create a `secrets.json` file at the top level of the repository, so we can call 
         "data": {
             "apikey": <RESCUE_GROUPS_SECRET>,
             "objectType": "animals",
-	          "objectAction": "publicSearch",
+	    "objectAction": "publicSearch",
             "search": {
                 "resultStart": 0,
                 "resultLimit": 20,
