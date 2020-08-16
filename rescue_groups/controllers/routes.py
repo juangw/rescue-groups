@@ -36,9 +36,6 @@ def index():
 @app.route("/animals")
 @login_required
 def animals_home(page=1):
-    if not current_user.is_authenticated:
-        return redirect("/login")
-
     error = ""
     default_filter = [
         {"fieldName": "animalSpecies", "operation": "equals", "criteria": "cat"},
@@ -68,9 +65,6 @@ def animals_home(page=1):
 @app.route("/saved-animals")
 @login_required
 def animals_saved():
-    if not current_user.is_authenticated:
-        return redirect("/login")
-
     try:
         saved_animals = list_saved_animals()
         return render_template(
@@ -83,9 +77,6 @@ def animals_saved():
 @app.route("/animals/<page>", methods=["GET", "POST"])
 @login_required
 def animals_page_filter(page):
-    if not current_user.is_authenticated:
-        return redirect("/login")
-
     gender = request.args.get("gender", request.form.get("gender"))
     location = request.args.get("location", request.form.get("location"))
     age = request.args.get("age", request.form.get("age"))
@@ -159,9 +150,6 @@ def animals_page_filter(page):
 @app.route("/animal/<animal_id>")
 @login_required
 def animal(animal_id):
-    if not current_user.is_authenticated:
-        return redirect("/login")
-
     animal_filter = [
         {"fieldName": "animalID", "operation": "equals", "criteria": animal_id}
     ]

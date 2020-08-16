@@ -38,6 +38,11 @@ def logout():
     return redirect(url_for("index"))
 
 
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect("/login")
+
+
 @app.route("/login/callback")
 def callback():
     # Get authorization code Google sent back to you
