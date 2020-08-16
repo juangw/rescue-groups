@@ -23,6 +23,9 @@ Create a `secrets.json` file at the top level of the repository, so we can call 
         "url": "https://api.rescuegroups.org/http/v2.json",
         "api_key": <RESCUE_GROUPS_SECRET>,
         "data": {
+            "apikey": <RESCUE_GROUPS_SECRET>,
+            "objectType": "animals",
+	          "objectAction": "publicSearch",
             "search": {
                 "resultStart": 0,
                 "resultLimit": 20,

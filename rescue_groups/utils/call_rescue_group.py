@@ -39,13 +39,8 @@ def api_post_req(
     api_data = api_info.data
     api_key = api_info.api_key
     headers = {"x-api-key": api_key}
-    # print(api_url)
-    # print(headers)
-    # print(api_data)
-
     res = requests.post(url=api_url, headers=headers, json=api_data, timeout=10)
     if res.status_code == 200:
-        # print(res.text)
         return res.text
     else:
         log.error(f"Request failed with response: {res.status_code}")
