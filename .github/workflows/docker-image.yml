@@ -18,7 +18,7 @@ jobs:
       run: |
         docker-compose build
         docker-compose up -d
-        docker-compose exec rescue-groups-app bash
+        docker-compose exec -T rescue-groups-app bash
     - name: Lint with Flake8
       run: |
         pip install flake8
