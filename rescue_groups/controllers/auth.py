@@ -1,4 +1,4 @@
-from rescue_groups.utils.queries import get_user_by_id, insert_user
+from rescue_groups.utils.db_ops import get_user_by_id, insert_user
 from rescue_groups import login_manager, client
 from rescue_groups.db import Users
 from rescue_groups.config import (

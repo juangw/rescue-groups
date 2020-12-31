@@ -1,7 +1,7 @@
 from rescue_groups.utils.call_rescue_group import api_post_req
 from rescue_groups.models.parser import strip_tags
 from rescue_groups.utils.all_fields import ALL_FIELDS
-from rescue_groups.utils.queries import save_animal, remove_animal, list_saved_animals
+from rescue_groups.utils.db_ops import save_animal, remove_animal, list_saved_animals
 
 from flask import current_app as app
 from rescue_groups.utils.logger import log
