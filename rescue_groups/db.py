@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import (
     Column,
     DateTime,
@@ -25,8 +25,8 @@ log.info("Connecting to postgres")
 engine = sqlalchemy.create_engine(URL, client_encoding="utf8")
 
 Base = declarative_base()
-Session = sessionmaker(bind=engine)
-session = Session()
+session_factory = sessionmaker(bind=engine)
+session = scoped_session(session_factory)
 
 
 class Animals(Base):
