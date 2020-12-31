@@ -10,16 +10,19 @@ class TestDBOperations(unittest.TestCase):
     """Test db operations"""
 
     @mock.patch("rescue_groups.utils.db_ops.animal_by_id_req")
-    @mock.patch("rescue_groups.utils.db_ops.session")
+    @mock.patch("rescue_groups.utils.db_ops.flask")
     @mock.patch("rescue_groups.utils.db_ops.current_user")
     def test_save_animal(
         self,
         mock_current_user: mock.MagicMock(),
-        mock_session: mock.MagicMock(),
+        mock_flask: mock.MagicMock(),
         mock_animal_by_id: mock.MagicMock(),
     ):
         """Test saves animal to animals table"""
         # Given
+        # Create mock session
+        mock_session = mock.MagicMock()
+        mock_flask.g.session = mock_session
         # Mock rescue group api query result
         mock_animal_by_id.return_value = json.dumps({
             "data": {
@@ -37,8 +40,6 @@ class TestDBOperations(unittest.TestCase):
                 }
             }
         })
-        # Mock current user id
-        mock_current_user.id = None
 
         # When
         # Call save animal function that we are testing
@@ -47,6 +48,6 @@ class TestDBOperations(unittest.TestCase):
         # Then
         # Make sure everything is called and committed to DB
         mock_animal_by_id.assert_called_with("rescue_group", 1)
-        mock_session.add.assert_called_once()
-        mock_session.commit.assert_called_once()
+        mock_flask.g.session.add.assert_called_once()
+        mock_flask.g.session.commit.assert_called_once()
 
