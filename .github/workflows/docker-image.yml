@@ -18,13 +18,12 @@ jobs:
       run: |
         docker-compose build
         docker-compose up -d
-        docker-compose exec -T rescue-groups-app bash
-        python -m pip install --upgrade pip
+        docker-compose exec -T rescue-groups-app python -m pip install --upgrade pip
     - name: Lint with Flake8
       run: |
-        pip install flake8
-        flake8 .
+        docker-compose exec -T rescue-groups-app pip install flake8
+        docker-compose exec -T rescue-groups-app flake8 .
     - name: Run Unit Tests with Pytest
       run: |
-        pip install pytest
-        pytest .
+        docker-compose exec -T rescue-groups-app pip install pytest
+        docker-compose exec -T rescue-groups-app pytest .
