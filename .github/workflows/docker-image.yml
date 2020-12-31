@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: |
+        docker-compose build
+        docker-compose up -d
+        docker-compose exec rescue-groups-app bash
+    - name: Lint with Flake8
+      run: |
+        pip install flake8
+        flake8 .
+    - name: Run Unit Tests with Pytest
+      run: |
+        pip install pytest
+        pytest .
