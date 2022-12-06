@@ -4,9 +4,8 @@ RUN mkdir -p /usr/src/app
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache --virtual .build-deps gcc musl-dev \
-     && pip install cython \
-     && apk del .build-deps gcc musl-dev
+RUN apt-get update
+RUN apt-get install gcc
 RUN pip3 install -r requirements.txt
 RUN python setup.py develop
 
