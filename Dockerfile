@@ -5,8 +5,8 @@ COPY . /usr/src/app
 WORKDIR /usr/src/app
 
 RUN apt-get update
-RUN apt-get install python3-dev
-RUN apt-get install libevent-dev
+RUN apt-get -y install python3-dev
+RUN apt-get -y install libevent-dev
 RUN pip3 install -r requirements.txt
 RUN python setup.py develop
 
