@@ -8,6 +8,8 @@ WORKDIR /usr/src/app
 
 RUN pip3 install -r requirements.txt
 RUN python setup.py develop
+RUN apt-get install python3-dev
+RUN apt-get install libevent-dev
 
 # specify the port number the container should expose
 EXPOSE 8080
