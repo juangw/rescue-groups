@@ -4,9 +4,9 @@ RUN mkdir -p /usr/src/app
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-RUN apt-get update
-RUN apt-get -y install python3-dev
-RUN apt-get -y install libevent-dev
+RUN apk add --no-cache --virtual .build-deps gcc musl-dev
+RUN pip install cython
+RUN apk del .build-deps gcc musl-dev
 RUN pip3 install -r requirements.txt
 RUN python setup.py develop
 
