@@ -1,5 +1,6 @@
 # rescue-groups
-Repository for Python Website for the rescue-groups API
+Repository for Python Website for the rescue-groups API.
+You can find the deployed site on https://rescue-groups.onrender.com/
 
 ## How to start application locally
 Use docker-compose commands to build, run, and exec into
